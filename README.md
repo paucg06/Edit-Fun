@@ -108,6 +108,8 @@ Para publicar este proyecto gratis con **GitHub Pages**:
 
 ---
 
-## 👤 Autor y Créditos
-* **Desarrollador**: [EternoDev](https://github.com/paucg06)
-* Proyecto creado como suite de utilidades para creadores audiovisuales y streamers.
+## 👤 Autor y Redes
+* 🌐 **Web Oficial**: [eternodev.com](https://eternodev.com)
+* 📺 **YouTube**: [@eternodev](https://www.youtube.com/@eternodev)
+* 🐙 **GitHub**: [@paucg06](https://github.com/paucg06)
+* 🍌 **Buy Me a Coffee**: [buymeacoffee.com/eternodev](https://buymeacoffee.com/eternodev)
