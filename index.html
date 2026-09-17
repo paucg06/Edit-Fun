@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Fun</title>
+  <link rel="icon" href="editfun_icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  
+  <!-- Tipografías -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css">
+  <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Slackey&family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Roboto:wght@700;900&family=Google+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9;
+      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px 20px;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* Header Container */
+    .header-container {
+      text-align: center;
+      margin-bottom: 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Título principal fijo con Slackey */
+    .brand-title {
+      font-family: 'Slackey', cursive;
+      font-size: 74px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-transform: none;
+      color: #111111;
+      margin-bottom: 2px;
+      text-shadow: 3px 3px 0px rgba(0,0,0,0.06);
+    }
+
+    /* ========================================
+       BOTÓN YOUTUBE ROJO AUTO-ESCALABLE (EN 'em')
+       ======================================== */
+    .yt-eye-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      font-size: inherit;
+      filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.06));
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .yt-eye-badge:hover {
+      transform: scale(1.08);
+    }
+
+    .yt-red-pill {
+      background-color: #ff0000;
+      width: 1.06em;
+      height: 0.72em;
+      border-radius: 0.25em;
+      border: none;
+      box-shadow: 0 0.065em 0 #b80000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eye-pair-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .yt-eye {
+      width: 0.40em;
+      height: 0.40em;
+      background: #ffffff;
+      border-radius: 50%;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      margin: 0 -0.015em;
+      transition: height 0.12s ease, border-radius 0.12s ease;
+    }
+
+    .eyelid-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0%;
+      background: #ff0000;
+      z-index: 3;
+      transition: height 0.08s ease;
+    }
+
+    .yt-pupil {
+      width: 0.165em;
+      height: 0.165em;
+      background: #000000;
+      border-radius: 50%;
+      position: absolute;
+      top: calc(50% - 0.0825em);
+      left: calc(50% - 0.0825em);
+      transition: transform 0.04s ease-out;
+      z-index: 2;
+    }
+
+    .yt-eye.half-closed {
+      height: 0.23em !important;
+      border-radius: 0.15em !important;
+    }
+
+    /* Subtítulo */
+    .brand-subtitle {
+      font-size: 19px;
+      color: #555555;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      margin-top: 0px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-subtitle .author-highlight {
+      font-family: 'Slackey', cursive;
+      color: #FDD31D;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-left: 2px;
+    }
+
+
+
+    /* Grid de Herramientas */
+    .grid-container {
+      width: 100%;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+      .brand-title {
+        font-size: 46px;
+      }
+      .brand-subtitle {
+        font-size: 16px;
+      }
+      .brand-subtitle .author-highlight {
+        font-size: 18px;
+      }
+    }
+
+    /* Estilo de Tarjetas */
+    .tool-card {
+      background: #ffffff;
+      border-radius: 22px;
+      border: 3px solid #111111;
+      box-shadow: 0 4px 0 #111111;
+      padding: 26px 28px;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 0 #111111;
+    }
+    .tool-card:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #111111;
+    }
+
+    /* Tarjeta 1: GoogleFake (Tema Claro con Google Multicolor y Fake Gris) */
+    .card-google {
+      background: #ffffff;
+      color: #202124;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 28px 24px;
+    }
+
+    /* Tarjeta 2: 999,999 views (Tema Oscuro YouTube) */
+    .card-views {
+      background: #2c2c2c;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 26px 24px;
+    }
+
+    
+    /* Tarjeta 3: Errors (Windows BSOD) */
+    .card-errors {
+      background: #0078d7;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px 24px;
+    }
+
+    .errors-card-title {
+      font-family: 'Segoe UI Light', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 38px !important;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      line-height: 1.1;
+      margin-top: 0px;
+      margin-bottom: 2px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .errors-card-title {
+        font-size: 30px !important;
+        gap: 8px;
+      }
+    }
+
+    .errors-card-title .meme-face-card {
+      font-size: 38px !important;
+      font-weight: 300;
+      font-family: 'Segoe UI Light', 'Segoe UI', sans-serif;
+      color: #ffffff;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    .errors-preview-box {
+      background: rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 6px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .errors-preview-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.88);
+      letter-spacing: 0.2px;
+    }
+
+    .errors-preview-pct {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    
+    /* Tarjeta 4: Edit Comments (Full YouTube Comment Card) */
+    .card-comments {
+      background: #ffffff;
+      color: #0f0f0f;
+      text-align: left;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 6px;
+      padding: 22px 28px 24px 28px;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    .card-comments-pinned {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #606060;
+      margin-bottom: 8px;
+    }
+
+    .card-comments-pinned svg {
+      width: 17px;
+      height: 17px;
+      fill: #606060;
+      flex-shrink: 0;
+    }
+
+    .card-comments-pinned strong {
+      font-weight: 600;
+      color: #606060;
+    }
+
+    .card-comments-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      margin-top: 4px;
+      padding: 0 8px;
+    }
+
+    .card-comments-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #ff0000;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .card-comments-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-comments-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      transform: translateY(-4px);
+    }
+
+    .card-comments-header {
+      display: flex;
+      align-items: baseline;
+      line-height: 1;
+    }
+
+    .card-comments-name {
+      font-size: 34px;
+      font-weight: 800;
+      color: #0f0f0f;
+      letter-spacing: -0.8px;
+      display: inline-flex;
+      align-items: baseline;
+      line-height: 1;
+    }
+
+    .card-comments-at {
+      color: #606060;
+      font-weight: 700;
+      margin-right: 1px;
+    }
+
+    .card-comments-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 6px;
+      margin-left: 8px;
+      height: 24px;
+    }
+
+    .card-comments-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #606060;
+    }
+
+    .card-comments-btn svg {
+      color: #0f0f0f;
+      fill: #0f0f0f;
+      stroke: #0f0f0f;
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .card-comments-reply {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f0f0f;
+      margin-left: 2px;
+    }
+
+    /* Tarjeta 5: Digital Timer */
+    .card-timer {
+      background: #242424;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 34px 24px 24px 24px;
+    }
+
+    .timer-card-digits {
+      font-family: 'DSEG7-Classic-Bold', 'DSEG7-Classic', monospace;
+      font-size: 52px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-top: 6px;
+    }
+
+    .timer-card-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .timer-mini-pill {
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 8px;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-mini-pill.pill-parar {
+      background: #ffffff;
+      color: #0f0f0f;
+    }
+
+    .timer-mini-pill.pill-reiniciar {
+      background: #383838;
+      color: #ffffff;
+      border: 1px solid #4a4a4a;
+    }
+
+    .card-twitter {
+      background: #f4f9ff;
+    }
+
+    .card-news {
+      background: #fffdf2;
+    }
+
+    .card-title {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      margin-bottom: 8px;
+    }
+
+    /* Título GoogleFake */
+    .google-fake-title {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0px;
+      margin-bottom: 0px;
+      line-height: 1.1;
+    }
+
+    .g-blue { color: #4285f4; }
+    .g-red { color: #ea4335; }
+    .g-yellow { color: #fbbc05; }
+    .g-green { color: #34a853; }
+
+    .google-fake-title .fake-tag {
+      color: #5f6368;
+      font-weight: 800;
+      margin-left: 2px;
+    }
+
+    /* Título Views Up */
+    .views-card-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1.1;
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+
+    .number-koulen {
+      font-family: 'Koulen', sans-serif;
+      font-size: 52px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .views-card-title .red-views {
+      font-family: 'Roboto', -apple-system, sans-serif;
+      color: #ff0000;
+      font-weight: 800;
+      font-size: 38px;
+      letter-spacing: -0.5px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.45;
+      color: #555555;
+      margin-bottom: 16px;
+    }
+
+    /* Barra visual Google (Tema Claro) */
+    .google-visual-bar {
+      height: 40px;
+      width: 100%;
+      max-width: 390px;
+      background: #ffffff;
+      border: 1.5px solid #dfe1e5;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 10px;
+      margin: 0 auto;
+      box-shadow: 0 1px 6px rgba(32, 33, 36, 0.08);
+    }
+
+    .google-visual-bar span {
+      font-size: 12.5px;
+      color: #5f6368;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Visual preview de Views (Tema Oscuro) */
+    .views-preview-bar {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 360px;
+      gap: 12px;
+      margin: 0 auto;
+    }
+
+    .preview-track {
+      width: 100%;
+      height: 11px;
+      background: #444444;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 74%;
+      background: #ff0000;
+      border-radius: 6px;
+    }
+
+    .preview-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .preview-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preview-stat-item svg {
+      width: 19px;
+      height: 19px;
+      fill: #ffffff;
+    }
+
+    .visual-pill-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .interactive-mini-tag {
+      font-size: 12px;
+      background: #ffffff;
+      border: 1.5px solid #111111;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      color: #111111;
+      box-shadow: 0 1.5px 0 #111111;
+    }
+
+    /* Toast Notification */
+    #toast-msg {
+      position: fixed;
+      bottom: 30px;
+      background: #111111;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    #toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  
+    
+
+  
+    
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header-container">
+    <h1 class="brand-title">
+      <span>Edit</span>
+      
+      <!-- LOGO YOUTUBE ROJO ESCALABLE -->
+      <div class="yt-eye-badge" id="yt-eye-badge" title="¡Hazme clic!">
+        <div class="yt-red-pill">
+          <div class="eye-pair-container">
+            <div class="yt-eye" id="yt-eye-left">
+              <div class="eyelid-slider" id="eyelid-left"></div>
+              <div class="yt-pupil" id="yt-pupil-left"></div>
+            </div>
+            <div class="yt-eye" id="yt-eye-right">
+              <div class="eyelid-slider" id="eyelid-right"></div>
+              <div class="yt-pupil" id="yt-pupil-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span>Fun</span>
+    </h1>
+
+    <p class="brand-subtitle">
+      herramientas y cosas de edición por <span class="author-highlight">EternoDev</span>
+    </p>
+  </div>
+
+  <!-- Panel de Herramientas -->
+  <div class="grid-container">
+    
+    <!-- TARJETA 1: GoogleFake -->
+    <a href="google.html" class="tool-card card-google">
+      <h2 class="card-title google-fake-title">
+        <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span><span class="fake-tag">Fake</span>
+      </h2>
+
+      <div class="google-visual-bar">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="#9aa0a6" style="flex-shrink:0;">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <span>Escribe y pulsa Enter para cargar...</span>
+      </div>
+    </a>
+
+    <!-- TARJETA 2: 999,999 views (YouTube Simulator) -->
+    <a href="views.html" class="tool-card card-views">
+      <h2 class="card-title views-card-title">
+        <span class="number-koulen">999,999</span> <span class="red-views">Views</span>
+      </h2>
+
+      <div class="views-preview-bar">
+        <div class="preview-track">
+          <div class="preview-fill"></div>
+        </div>
+        <div class="preview-stats-row">
+          <span class="preview-stat-item">
+            <svg viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+            45.2K
+          </span>
+          <span class="preview-stat-item">
+            <svg viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.37-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>
+            120
+          </span>
+        </div>
+      </div>
+    </a>
+
+        <!-- TARJETA 3: Windows Error -->
+    <a href="errors.html" class="tool-card card-errors">
+      <h2 class="card-title errors-card-title">
+        <span>Windows Error</span> <span class="meme-face-card">( ._.)</span>
+      </h2>
+
+      <div class="errors-preview-box">
+        <span class="errors-preview-text">CRITICAL_PROCESS_DIED</span>
+        <span class="errors-preview-pct">STOP: 0x0000007E (win32k.sys)</span>
+      </div>
+    </a>
+
+    <!-- TARJETA 4: Edit Comments (Full YouTube Comment Card) -->
+    <a href="comments.html" class="tool-card card-comments">
+      <!-- Pinned Row -->
+      <div class="card-comments-pinned">
+        <svg viewBox="0 0 126 146" width="16" height="16" style="fill:currentColor; stroke:currentColor; display:inline-block; vertical-align:middle; flex-shrink:0;">
+          <path d="M26.95 128C27.06 124.45 27.17 120.89 27.28 117.33C29.4 114.61 30.63 111.37 32.18 108.34C32.52 107.67 33.48 107.33 33.82 106.66C35.6 103.19 37.41 99.8 39.18 96.34C40.6 93.55 43.78 90.8 44 87.5C42.41 86.26 40.13 85.74 38.34 84.82C35.3 83.26 32.71 80.74 29.66 79.18C27.99 78.32 24.8 77.64 24.06 75.44C22.96 72.12 28.13 64.37 30.5 62C33.34 59.16 41.24 59.75 42.82 56.66C45.13 52.15 47.87 47.86 50.18 43.34C50.52 42.67 51.48 42.33 51.82 41.66C53.49 38.39 56.6 30.9 59 28.5C56.72 26.22 52.08 24.54 54.18 20.34C54.84 19.02 56.52 18.98 57.5 18C73.94 27.44 90.39 36.89 106.83 46.33C107.22 47.39 107.61 48.44 108 49.5C107.61 50.22 107.22 50.94 106.83 51.67C101.05 54.42 101.68 50.3 97.33 51.17C94.48 57.15 90.85 62.75 87.82 68.66C85.92 72.38 82.4 75.54 81.06 79.56C80.13 82.36 82.75 85.59 83 88.17C83.61 94.46 81.54 94.72 79.18 99.34C78.62 100.44 78.37 101.83 77.67 102.83C76.84 104.02 75.49 104.01 74.5 105C67.5 101 60.5 97 53.5 93C47.94 102.89 42.39 112.78 36.83 122.67C33.72 124.78 30.61 126.89 27.5 129C27.32 128.67 27.13 128.34 26.95 128ZM66.5 34C65.26 35.59 64.74 37.87 63.82 39.66C62.27 42.69 59.73 45.31 58.18 48.34C55.28 54 52.5 60.3 47.77 64.94C44.79 67.86 39.73 67.63 36.17 69.33C35.78 70.06 35.39 70.78 35 71.5C47.5 78.67 60 85.83 72.5 93C73 91.83 73.5 90.67 74 89.5C72.33 87.83 71.23 79.05 72.06 76.56C73.65 71.8 77.57 68.05 79.82 63.66C82.24 58.93 85.28 51.22 89 47.5C86.34 44.84 75.12 38.33 71.56 36.94C69.82 36.26 68.37 34.12 66.5 34Z" fill-rule="evenodd" stroke-width="0.25" stroke-linejoin="round"/>
+        </svg>
+        <span>Fijado por <strong>EternoDev</strong></span>
+      </div>
+
+      <!-- Main Comment Body -->
+      <div class="card-comments-body">
+        <!-- Avatar -->
+        <div class="card-comments-avatar">
+          <img src="editfun_icon.png" alt="Avatar">
+        </div>
+
+        <!-- Content -->
+        <div class="card-comments-content">
+          <!-- Header -->
+          <div class="card-comments-header">
+            <span class="card-comments-name">
+              <span class="card-comments-at">@</span><span>edit_comments</span>
+            </span>
+          </div>
+
+          <!-- Actions -->
+          <div class="card-comments-actions">
+            <!-- Like -->
+            <span class="card-comments-btn">
+              <svg viewBox="0 0 130 130"><path d="M111 103.5C111.64 106.41 112.97 110.37 111.94 113.46C108.84 122.77 97.86 124 89.5 124C78.49 124 67 124.39 56.52 121.95C51.27 120.74 44.93 118.32 40.31 115.84C38.15 114.68 35.79 112.83 33.46 112.06C27.25 109.99 18.38 114.11 12.31 110.84C8.97 109.05 9 104.45 9 101.17C9 93.5 9 85.83 9 78.17C9 75.35 8.15 70.9 9.12 68.26C11.92 60.67 22.36 63 28.83 63C31.51 63 35.3 63.56 36.84 60.69C39.42 55.89 40.36 50.64 42.06 45.54C43.04 42.58 44.95 39.42 45.94 36.46C47.56 31.61 48.74 27.06 50.81 22.3C52.34 18.76 54.66 6.91 57.31 5.15C61.56 2.34 67.1 6.64 70.15 9.69C78.78 18.33 75.3 28.82 72.06 38.54C72.12 41.36 69.84 45.98 72.15 48.69C75.16 52.21 80.15 51 84.5 51C93.54 51 105.02 49.24 113.46 52.06C121.79 54.83 123.31 65.37 120.94 72.46C120.33 74.29 117.45 74.09 117.07 76.18C116.42 79.7 119.25 81.47 119.95 84.52C121.96 93.16 116.25 98.25 111 103.5Z" fill-rule="evenodd" stroke-width="0.25" stroke-linejoin="round"/></svg>
+              <span>2,4 K</span>
+            </span>
+
+            <!-- Dislike -->
+            <span class="card-comments-btn">
+              <svg viewBox="0 0 120 126"><path fill-rule="evenodd" clip-rule="evenodd" d="M46.5614 79.375C36.4014 75.725 22.4614 82.105 11.0414 75.965C3.77135 72.055 -1.85865 59.615 0.791352 51.665C1.71135 48.895 3.75135 46.345 4.67135 43.585C5.87135 39.985 3.56135 35.355 4.79135 31.665C6.05135 27.885 8.68135 25.355 10.5714 21.815C12.7614 17.705 12.1914 13.145 15.0414 9.275C21.5814 0.384999 32.1114 0.125 42.2313 0.125C55.8913 0.125 68.9314 1.095 81.1914 5.185C85.7414 6.705 89.9314 9.985 94.4314 11.935C100.601 14.605 112.071 8.645 116.581 15.435C121.071 22.225 118.731 41.335 118.731 49.955C118.731 53.605 119.221 58.685 117.571 61.815C112.701 71.055 97.0914 63.485 93.8914 69.435C91.3114 74.235 90.3714 79.485 88.6714 84.585C85.3614 94.525 81.1014 103.725 77.7914 113.665C76.6714 117.035 76.4314 118.455 74.7314 121.625C72.6314 125.535 67.8114 125.315 64.9014 125.125C54.1914 124.435 45.2213 116.125 42.7813 105.605C40.6413 96.395 48.1314 87.995 46.5614 79.375ZM106.721 24.295C101.661 23.565 96.0714 24.665 91.2714 23.065C86.3714 21.435 82.0414 17.975 77.1914 16.185C67.0214 12.435 57.5613 12.125 46.2313 12.125C39.9613 12.125 27.5514 9.625 23.8914 16.435C22.2914 19.415 23.7114 22.475 22.6714 25.585C20.7514 31.365 10.4114 33.785 17.7314 45.625C11.8714 51.485 9.04135 63.655 19.2714 67.065C30.0514 70.655 49.0913 61.065 56.5813 72.435C64.6013 84.625 41.9714 108.645 65.2314 114.125C68.2314 105.605 67.2514 107.545 68.8914 104.435C74.0014 94.745 77.2214 82.935 80.6714 72.585C82.3714 67.495 83.9114 60.655 89.0414 57.275C94.6914 53.565 100.661 55.635 106.721 53.875C106.721 44.015 106.721 34.155 106.721 24.295Z"/></svg>
+            </span>
+
+            <!-- Responder -->
+            <span class="card-comments-reply">Responder</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- TARJETA 5: Temporizador Digital / Cuenta Atrás -->
+    <a href="timer.html" class="tool-card card-timer">
+      <div class="timer-card-digits">t1:ME:VP</div>
+      <div class="timer-card-pills">
+        <span class="timer-mini-pill pill-parar">Parar</span>
+        <span class="timer-mini-pill pill-reiniciar">Reiniciar</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-msg"></div>
+
+  <script>
+    const pupilLeft = document.getElementById('yt-pupil-left');
+    const pupilRight = document.getElementById('yt-pupil-right');
+    const eyeLeft = document.getElementById('yt-eye-left');
+    const eyeRight = document.getElementById('yt-eye-right');
+    const eyelidLeft = document.getElementById('eyelid-left');
+    const eyelidRight = document.getElementById('eyelid-right');
+    const eyeBadge = document.getElementById('yt-eye-badge');
+
+    document.addEventListener('mousemove', (e) => {
+      const rect = eyeBadge.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+      const maxDistance = rect.height * 0.13;
+
+      const dx = Math.cos(angle) * maxDistance;
+      const dy = Math.sin(angle) * maxDistance;
+
+      pupilLeft.style.transform = `translate(${dx}px, ${dy}px)`;
+      pupilRight.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+
+    function doBlink() {
+      eyelidLeft.style.height = '100%';
+      eyelidRight.style.height = '100%';
+      setTimeout(() => {
+        eyelidLeft.style.height = '0%';
+        eyelidRight.style.height = '0%';
+      }, 130);
+    }
+
+    function doHalfClose() {
+      eyeLeft.classList.add('half-closed');
+      eyeRight.classList.add('half-closed');
+      setTimeout(() => {
+        eyeLeft.classList.remove('half-closed');
+        eyeRight.classList.remove('half-closed');
+      }, 750 + Math.random() * 400);
+    }
+
+    function scheduleNextEyeAction() {
+      const delay = 2200 + Math.random() * 3000;
+      setTimeout(() => {
+        const rand = Math.random();
+        if (rand < 0.65) {
+          doBlink();
+        } else if (rand < 0.88) {
+          doHalfClose();
+        } else {
+          doBlink();
+          setTimeout(doBlink, 200);
+        }
+        scheduleNextEyeAction();
+      }, delay);
+    }
+    scheduleNextEyeAction();
+
+    eyeBadge.addEventListener('click', () => {
+      doBlink();
+      setTimeout(doHalfClose, 180);
+    });
+
+    let toastTimeout;
+    function showToast(msg) {
+      const toast = document.getElementById('toast-msg');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  
+
+    
+
+  
+    
+
+  
+    
+
+  </script>
+</body>
+</html>
