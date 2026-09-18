@@ -73,6 +73,17 @@
       perspective: 1200px;
     }
 
+    /* Canvas de alto rendimiento para rastro infinito de cascada sin saturar el DOM */
+    #cascade-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     /* Elementos flotantes / popups */
     .spawn-item {
       position: absolute;
@@ -1160,7 +1171,9 @@
   </button>
 
   <!-- LIENZO DE ANIMACIÓN -->
-  <div id="stage"></div>
+  <div id="stage">
+    <canvas id="cascade-canvas"></canvas>
+  </div>
 
   <!-- PANEL DE CONTROL FLOTANTE -->
   <aside class="control-panel" id="control-panel">
@@ -1548,7 +1561,7 @@
         <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid #27272a; padding: 14px; border-radius: 10px; font-size: 12.5px; color: #d4d4d8; line-height: 1.6;">
           <strong style="color: #ffffff; display: block; margin-bottom: 5px;">Tips de grabación:</strong>
           Pulsa <kbd class="keyboard-badge">H</kbd> para ocultar el panel y <kbd class="keyboard-badge">F11</kbd> para pantalla completa.<br>
-          Pulsa <kbd class="keyboard-badge">Espacio</kbd> para iniciar la animación y <kbd class="keyboard-badge">R</kbd> para reiniciar.
+          Pulsa <kbd class="keyboard-badge">Espacio</kbd> o <kbd class="keyboard-badge">S</kbd> para iniciar la animación y <kbd class="keyboard-badge">R</kbd> para reiniciar.
         </div>
       </div>
 
@@ -1562,14 +1575,12 @@
             <path d="M8 5v14l11-7z"/>
           </svg>
           <span id="play-text">Iniciar Animación</span>
-          <span class="btn-key-badge">S</span>
         </button>
         <button class="btn-main-reset" id="btn-reset" title="Limpiar Lienzo (R)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
             <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
           </svg>
           <span>Limpiar</span>
-          <span class="btn-key-badge">R</span>
         </button>
       </div>
 
@@ -1593,14 +1604,55 @@
        ======================================================== */
     const stage = document.getElementById('stage');
     const controlPanel = document.getElementById('control-panel');
+    const cascadeCanvas = document.getElementById('cascade-canvas');
+    const cascadeCtx = cascadeCanvas ? cascadeCanvas.getContext('2d') : null;
+
+    function resizeCascadeCanvas() {
+      if (!cascadeCanvas) return;
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = cascadeCanvas.width;
+      tempCanvas.height = cascadeCanvas.height;
+      const tempCtx = tempCanvas.getContext('2d');
+      if (tempCtx && cascadeCanvas.width > 0 && cascadeCanvas.height > 0) {
+        tempCtx.drawImage(cascadeCanvas, 0, 0);
+      }
+
+      cascadeCanvas.width = window.innerWidth;
+      cascadeCanvas.height = window.innerHeight;
+
+      if (cascadeCtx && tempCanvas.width > 0 && tempCanvas.height > 0) {
+        cascadeCtx.drawImage(tempCanvas, 0, 0);
+      }
+    }
+    window.addEventListener('resize', resizeCascadeCanvas);
+    resizeCascadeCanvas();
+
+    const imageElementsCache = new Map();
+    function getPreloadedImage(src) {
+      let img = imageElementsCache.get(src);
+      if (!img) {
+        img = new Image();
+        img.src = src;
+        imageElementsCache.set(src, img);
+      }
+      return img;
+    }
 
     const MAX_STAGE_ELEMENTS = 250;
 
-    // Inserción segura en el DOM con límite FIFO de 250 elementos
+    // Inserción segura en el DOM con límite FIFO de 250 elementos (para Pop-ups y Lluvia)
     function appendToStage(elem) {
       while (stage.childElementCount >= MAX_STAGE_ELEMENTS) {
         const oldest = stage.firstElementChild;
         if (oldest) {
+          if (oldest.id === 'cascade-canvas') {
+            // No eliminar el lienzo de fondo
+            if (stage.childElementCount > 1) {
+              const nextElem = stage.children[1];
+              if (nextElem) nextElem.remove();
+            }
+            break;
+          }
           oldest.remove();
         } else {
           break;
@@ -2412,16 +2464,28 @@
         const sizeMult = evaluateCurveMultiplier('cascade-size', progress, false);
         const currentSize = Math.round(stream.baseItemSize * sizeMult);
 
-        const elem = document.createElement('div');
-        elem.className = 'cascade-item';
-        elem.style.left = `${stream.x}px`;
-        elem.style.top = `${stream.y}px`;
-        elem.style.width = `${currentSize}px`;
+        const imgObj = getPreloadedImage(stream.img);
+        const drawStamp = (imageToDraw) => {
+          if (!cascadeCtx) return;
+          const nw = imageToDraw.naturalWidth || 340;
+          const nh = imageToDraw.naturalHeight || 120;
+          const aspect = nh / nw;
+          const currentHeight = currentSize * aspect;
 
-        const img = document.createElement('img');
-        img.src = stream.img;
-        elem.appendChild(img);
-        appendToStage(elem);
+          cascadeCtx.save();
+          cascadeCtx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+          cascadeCtx.shadowBlur = 4;
+          cascadeCtx.shadowOffsetX = 1;
+          cascadeCtx.shadowOffsetY = 2;
+          cascadeCtx.drawImage(imageToDraw, stream.x, stream.y, currentSize, currentHeight);
+          cascadeCtx.restore();
+        };
+
+        if (imgObj.complete && imgObj.naturalWidth > 0) {
+          drawStamp(imgObj);
+        } else {
+          imgObj.onload = () => drawStamp(imgObj);
+        }
         spawnedAny = true;
 
         stream.x += stream.dx;
@@ -2790,7 +2854,10 @@
       stopCascadeEngine();
       stopPopupsEngine();
       stopRainEngine();
-      stage.innerHTML = '';
+      if (cascadeCtx && cascadeCanvas) {
+        cascadeCtx.clearRect(0, 0, cascadeCanvas.width, cascadeCanvas.height);
+      }
+      stage.querySelectorAll('.spawn-item, .cascade-item').forEach(el => el.remove());
       activeRainParticles = [];
       cascadeStreams = [];
       currentPopCount = 0;
