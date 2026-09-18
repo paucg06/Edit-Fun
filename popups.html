@@ -242,16 +242,16 @@
       right: 16px;
       width: 400px;
       max-height: calc(100vh - 72px);
-      background: var(--panel-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: #18181b;
       border: 1.5px solid #27272a;
       border-radius: 16px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
       z-index: 100;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      isolation: isolate;
+      transform: translateZ(0);
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
     }
 
@@ -265,7 +265,7 @@
     .panel-tabs {
       display: flex;
       padding: 10px 14px 0 14px;
-      background: rgba(24, 24, 27, 0.85);
+      background: #18181b;
       border-bottom: 1.5px solid #27272a;
       gap: 4px;
       border-radius: 16px 16px 0 0;
@@ -998,7 +998,7 @@
        ======================================================== */
     .panel-footer {
       padding: 14px 20px 16px 20px;
-      background: rgba(24, 24, 27, 0.85);
+      background: #18181b;
       border-top: 1.5px solid #27272a;
       display: flex;
       flex-direction: column;
@@ -1846,13 +1846,10 @@
     function addImagesToPool(files) {
       Array.from(files).forEach(file => {
         if (!file.type.startsWith('image/')) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          imagesList.push(e.target.result);
-          updateGalleryUI();
-        };
-        reader.readAsDataURL(file);
+        const blobUrl = URL.createObjectURL(file);
+        imagesList.push(blobUrl);
       });
+      updateGalleryUI();
       showToast(`Añadidas imágenes a la biblioteca`);
     }
 
