@@ -254,61 +254,42 @@
       }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 580px) {
       .tool-card.card-comments {
-        padding: 22px 18px 24px 18px;
+        padding: clamp(18px, 4.2vw, 24px) clamp(14px, 4vw, 24px);
       }
       .tool-card.card-comments .card-comments-wrapper {
-        gap: 10px;
+        gap: clamp(8px, 2.2vw, 12px);
       }
       .tool-card.card-comments .card-comments-pinned {
-        font-size: 13.5px;
-        gap: 6px;
+        font-size: clamp(12.5px, 2.8vw, 14px);
+        gap: clamp(6px, 1.5vw, 8px);
       }
       .tool-card.card-comments .card-comments-pinned svg {
-        width: 15px;
-        height: 15px;
+        width: clamp(14px, 3vw, 17px);
+        height: clamp(14px, 3vw, 17px);
       }
       .tool-card.card-comments .card-comments-body {
-        gap: 16px;
+        gap: clamp(12px, 3.5vw, 20px);
       }
       .tool-card.card-comments .card-comments-avatar {
-        width: 58px;
-        height: 58px;
+        width: clamp(48px, 12.5vw, 72px);
+        height: clamp(48px, 12.5vw, 72px);
       }
       .tool-card.card-comments .card-comments-name {
-        font-size: clamp(20px, 5.5vw, 26px);
+        font-size: clamp(19px, 5.8vw, 33px);
         letter-spacing: -0.5px;
       }
       .tool-card.card-comments .card-comments-actions {
-        gap: 14px;
+        gap: clamp(10px, 2.8vw, 16px);
       }
       .tool-card.card-comments .card-comments-btn,
       .tool-card.card-comments .card-comments-reply {
-        font-size: 13px;
+        font-size: clamp(11.5px, 2.6vw, 14px);
       }
-    }
-
-    @media (max-width: 400px) {
-      .tool-card.card-comments {
-        padding: 20px 14px 22px 14px;
-      }
-      .tool-card.card-comments .card-comments-body {
-        gap: 14px;
-      }
-      .tool-card.card-comments .card-comments-avatar {
-        width: 52px;
-        height: 52px;
-      }
-      .tool-card.card-comments .card-comments-name {
-        font-size: 22px;
-      }
-      .tool-card.card-comments .card-comments-actions {
-        gap: 12px;
-      }
-      .tool-card.card-comments .card-comments-btn,
-      .tool-card.card-comments .card-comments-reply {
-        font-size: 12.5px;
+      .tool-card.card-comments .card-comments-btn svg {
+        width: clamp(14px, 3vw, 17px);
+        height: clamp(14px, 3vw, 17px);
       }
     }
 
