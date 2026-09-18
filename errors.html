@@ -1072,42 +1072,51 @@
         updateFooter: "Es posible que el equipo se reinicie varias veces.",
         undo1: "No hemos podido completar las actualizaciones",
         undo2: "Deshaciendo cambios",
-        undo3: "No apagues el equipo"
+        undo3: "No apagues el equipo",
+        recTitle: "Recuperación",
+        recSubtitle: "Parece que Windows no se cargó correctamente",
+        recDesc: "Si quieres reiniciar e intentarlo de nuevo, elige “Reiniciar mi PC” a continuación. De lo contrario, elige “Ver opciones de reparación avanzadas” para herramientas de solución de problemas y opciones avanzadas. Si no sabes qué opción es la correcta, consulta con alguien de confianza.",
+        recBtnAdvanced: "Ver opciones de reparación avanzadas",
+        recBtnRestart: "Reiniciar mi PC",
+        instTitle: "Instalando Windows 11",
+        instSubtitle: "El equipo se reiniciará varias veces. Esto puede tardar unos minutos.",
+        instPctLabel: "completado",
+        instCancel: "Cancelar"
       }
     };
 
     function updateLanguageTexts() {
       const t = TEXTS[currentLang] || TEXTS.en;
-      realMsg.textContent = t.realMsg;
+      realMsg.textContent = t.realMsg || TEXTS.en.realMsg;
       realInfo.innerHTML = `
-        <p>${t.realInfoP1} <a href="#">https://www.windows.com/stopcode</a></p>
+        <p>${t.realInfoP1 || TEXTS.en.realInfoP1} <a href="#">https://www.windows.com/stopcode</a></p>
         <div class="bsod-info-codes">
-          <p>${t.realInfoP2}</p>
+          <p>${t.realInfoP2 || TEXTS.en.realInfoP2}</p>
           <p>Stop code: <span id="real-stopcode-disp">${stopCode}</span></p>
         </div>
       `;
       
-      memeTitle.innerHTML = t.memeTitle;
-      memeInfoP1.innerHTML = `${t.memeInfoP1} <a href="#">https://www.windows.com/stopcode</a>`;
-      memeInfoP2.textContent = t.memeInfoP2;
-      memeStopcodeDisp.textContent = (currentMode === 'bsod_meme' && stopCode === 'CRITICAL_PROCESS_DIED') ? t.memeDefaultStopCode : stopCode;
+      memeTitle.innerHTML = t.memeTitle || TEXTS.en.memeTitle;
+      memeInfoP1.innerHTML = `${t.memeInfoP1 || TEXTS.en.memeInfoP1} <a href="#">https://www.windows.com/stopcode</a>`;
+      memeInfoP2.textContent = t.memeInfoP2 || TEXTS.en.memeInfoP2;
+      memeStopcodeDisp.textContent = (currentMode === 'bsod_meme' && stopCode === 'CRITICAL_PROCESS_DIED') ? (t.memeDefaultStopCode || TEXTS.en.memeDefaultStopCode) : stopCode;
 
-      updateMsgSub.textContent = t.updateSub;
-      updateFooterDisp.textContent = t.updateFooter;
+      updateMsgSub.textContent = t.updateSub || TEXTS.en.updateSub;
+      updateFooterDisp.textContent = t.updateFooter || TEXTS.en.updateFooter;
 
-      undoLine1.textContent = t.undo1;
-      undoLine2.textContent = t.undo2;
-      undoLine3.textContent = t.undo3;
+      undoLine1.textContent = t.undo1 || TEXTS.en.undo1;
+      undoLine2.textContent = t.undo2 || TEXTS.en.undo2;
+      undoLine3.textContent = t.undo3 || TEXTS.en.undo3;
 
-      recTitle.textContent = t.recTitle;
-      recSubtitle.textContent = t.recSubtitle;
-      recDesc.textContent = t.recDesc;
-      btnRecAdvanced.textContent = t.recBtnAdvanced;
-      btnRecRestart.textContent = t.recBtnRestart;
+      recTitle.textContent = t.recTitle || TEXTS.en.recTitle;
+      recSubtitle.textContent = t.recSubtitle || TEXTS.en.recSubtitle;
+      recDesc.textContent = t.recDesc || TEXTS.en.recDesc;
+      btnRecAdvanced.textContent = t.recBtnAdvanced || TEXTS.en.recBtnAdvanced;
+      btnRecRestart.textContent = t.recBtnRestart || TEXTS.en.recBtnRestart;
 
-      instTitle.textContent = t.instTitle;
-      instSubtitle.textContent = t.instSubtitle;
-      btnInstCancel.textContent = t.instCancel;
+      instTitle.textContent = t.instTitle || TEXTS.en.instTitle;
+      instSubtitle.textContent = t.instSubtitle || TEXTS.en.instSubtitle;
+      btnInstCancel.textContent = t.instCancel || TEXTS.en.instCancel;
 
       renderCurrentPct(pctStart);
     }
