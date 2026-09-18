@@ -1,93 +1,72 @@
-﻿EDITFUN PROPRIETARY & SOURCE-AVAILABLE LICENSE
-(Licencia de Código Visible y Uso Personal No Comercial)
+﻿Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License
+
+By exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License ("Public License"). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.
 
 Copyright (c) 2026 Pau / EternoDev (https://eternodev.com)
-Repositorio oficial: https://github.com/paucg06/Edit-Fun
-Todos los derechos reservados / All rights reserved.
+Repository: https://github.com/paucg06/Edit-Fun
 
 ================================================================================
-ESPAÑOL - TÉRMINOS Y CONDICIONES
+RESUMEN Y CONDICIONES ESPECÍFICAS (ESPAÑOL)
 ================================================================================
 
-El software EditFun, incluyendo su código fuente, arquitectura, diseño visual,
-interfaces, estilos CSS, scripts y archivos multimedia asociados son propiedad
-intelectual exclusiva de Pau (EternoDev).
+Este proyecto (EditFun) está protegido bajo la licencia Creative Commons
+Reconocimiento-NoComercial-SinObraDerivada 4.0 Internacional (CC BY-NC-ND 4.0).
 
-Al acceder, clonar, inspeccionar o descargar este repositorio, aceptas de forma
-vinculante los siguientes términos y restricciones:
+Bajo esta licencia, se aplican las siguientes condiciones estrictas:
 
-1. USO PERMITIDO (SOLO LECTURA Y USO PERSONAL NO COMERCIAL)
-   - Tienes derecho a ver, inspeccionar, estudiar y auditar el código fuente.
-   - Se permite la ejecución y uso local, privado y estrictamente personal
-     en tu propio equipo con fines de aprendizaje o uso privado.
+1. USO PERMITIDO:
+   - Puedes ver, inspeccionar, auditar y aprender del código fuente libremente.
+   - Puedes clonar y ejecutar el proyecto en local única y exclusivamente para
+     uso personal, privado y no comercial.
 
-2. PROHIBICIÓN TOTAL DE REDISTRIBUCIÓN Y REPUBLICACIÓN (NO RE-HOSTING)
-   - Queda TERMINANTEMENTE PROHIBIDO publicar, republicar, re-hostear,
-     redistribuir, clonar para re-subir, reflejar (mirror) o desplegar este
-     proyecto o partes del mismo en cualquier servidor público, dominio web,
-     subdominio o plataforma de hosting (incluyendo GitHub Pages, Vercel,
-     Netlify, Cloudflare, AWS o similares).
-   - Queda prohibido hacer pasar este proyecto o cualquier derivado como
-     una creación propia en cualquier medio digital.
+2. PROHIBICIÓN DE REDISTRIBUCIÓN Y REPUBLICACIÓN (NO RE-HOSTING):
+   - Queda totalmente PROHIBIDO republicar, redistribuir, re-hostear o desplegar
+     este proyecto en otros sitios web, dominios o servicios de hosting
+     (Vercel, Netlify, GitHub Pages, etc.).
 
-3. PROHIBICIÓN DE USO COMERCIAL Y VENTA
-   - Queda TERMINANTEMENTE PROHIBIDA la venta directa o indirecta, reventa,
-     monetización, cobro por acceso, sublicenciamiento o inclusión total o
-     parcial de este código en productos, servicios o plataformas comerciales.
+3. NO COMERCIAL:
+   - No puedes utilizar este material para fines comerciales, venta ni monetización.
 
-4. ATRIBUCIÓN OBLIGATORIA
-   - Si haces mención o referencia a este proyecto con fines educativos o
-     divulgativos, es estrictamente obligatorio atribuir la autoría a
-     Pau / EternoDev enlazando a https://eternodev.com y al repositorio oficial.
-   - Queda prohibida la eliminación, alteración u ocultación de los avisos
-     de derechos de autor y enlaces al autor original.
+4. SIN DERIVADAS:
+   - Si remezclas, transformas o creas a partir del material, no puedes distribuir
+     el material modificado.
 
-5. RESERVA DE ACCIONES LEGALES
-   - El incumplimiento de cualquiera de las cláusulas anteriores constituirá
-     una infracción directa de la Ley de Propiedad Intelectual y tratados
-     internacionales de derechos de autor (incluyendo DMCA), facultando al
-     titular a emprender las acciones legales pertinentes.
-
-6. EXCLUSIÓN DE GARANTÍA
-   - EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO.
-     EN NINGÚN CASO EL TITULAR SERÁ RESPONSABLE DE DAÑOS O RECLAMACIONES
-     DERIVADAS DEL USO DEL SOFTWARE.
+5. ATRIBUCIÓN OBLIGATORIA:
+   - Debes dar crédito de manera adecuada a Pau / EternoDev (https://eternodev.com).
 
 ================================================================================
-ENGLISH - TERMS AND CONDITIONS
+CC BY-NC-ND 4.0 LEGAL CODE
 ================================================================================
 
-This software, its source code, visual design, user interfaces, scripts, and
-associated multimedia assets are the exclusive intellectual property of
-Pau (EternoDev).
+Section 1 – Definitions.
+a. Adapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring permission under the Copyright and Similar Rights held by the Licensor.
+b. Commercial Purposes means primarily intended for or directed towards commercial advantage or monetary compensation.
+c. NonCommercial means not primarily intended for or directed towards commercial advantage or monetary compensation.
+d. Licensed Material means the artistic or literary work, database, or other material to which the Licensor applied this Public License.
+e. Licensed Rights means the rights granted to You subject to the terms and conditions of this Public License, which are limited to all Copyright and Similar Rights that apply to Your use of the Licensed Material and that the Licensor has authority to license.
+f. Licensor means Pau / EternoDev, the individual granting rights under this Public License.
+g. You means the individual or entity exercising the Licensed Rights under this Public License.
 
-By accessing, viewing, cloning, or downloading this repository, you agree to
-the following binding terms:
+Section 2 – Scope.
+a. License grant.
+1. Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:
+A. reproduce and Share the Licensed Material, in whole or in part, for NonCommercial purposes only; and
+B. produce and reproduce, but not Share, Adapted Material for NonCommercial purposes only.
+2. Exceptions and Limitations. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.
+3. Term. The term of this Public License is specified in Section 6(a).
+4. Media and formats; technical modifications allowed. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so.
 
-1. PERMITTED USE (VIEW-ONLY / PRIVATE PERSONAL USE)
-   - You are permitted to inspect, read, and learn from the source code.
-   - You may run and use the software locally, privately, and strictly for
-     personal, non-commercial educational purposes.
+Section 3 – License Conditions.
+Your exercise of the Licensed Rights is expressly made subject to the following conditions.
+a. Attribution.
+If You Share the Licensed Material, You must:
+1. retain the identification of the creator(s) of the Licensed Material (Pau / EternoDev) and any others designated to receive attribution;
+2. retain a copyright notice;
+3. retain a notice that refers to this Public License;
+4. indicate if You modified the Licensed Material and retain an indication of any previous modifications; and
+5. indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.
+b. NonCommercial. You may not exercise the Licensed Rights for Commercial Purposes.
+c. NoDerivatives. If You Share Adapted Material You produce, You may not distribute it.
 
-2. STRICT PROHIBITION ON REDISTRIBUTION & RE-HOSTING
-   - IT IS STRICTLY FORBIDDEN to publish, republish, re-host, redistribute,
-     mirror, or deploy this project or any part of it on any public server,
-     website, custom domain, or hosting provider (e.g., Vercel, Netlify,
-     GitHub Pages, Cloudflare Pages, AWS, etc.).
-   - You may not claim this software or any derivatives as your own work.
-
-3. NO COMMERCIAL USE OR MONETIZATION
-   - Any commercial use, resale, sublicensing, charging fees for access,
-     or bundling with commercial software/services is strictly prohibited.
-
-4. MANDATORY ATTRIBUTION
-   - Any educational reference or mention must visibly credit Pau / EternoDev
-     and include a link to https://eternodev.com and the official repository.
-   - You may not remove or modify any copyright notices or branding.
-
-5. LEGAL ENFORCEMENT
-   - Any violation will be subject to DMCA takedown notices and legal action
-     under applicable copyright and intellectual property laws.
-
-6. DISCLAIMER OF WARRANTY
-   - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+Section 4 – Disclaimer of Warranties and Limitation of Liability.
+THE LICENSED MATERIAL IS PROVIDED "AS IS" AND WITHOUT WARRANTIES OF ANY KIND. IN NO EVENT WILL THE LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, EXEMPLARY, OR OTHER LOSSES, COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THIS PUBLIC LICENSE OR USE OF THE LICENSED MATERIAL.

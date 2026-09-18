@@ -623,9 +623,9 @@
 
     .popups-card-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 52px;
+      font-size: clamp(48px, 6.2vw, 68px);
       font-weight: 900;
-      letter-spacing: -1.2px;
+      letter-spacing: -1.5px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -634,7 +634,9 @@
       margin-top: 0px;
       margin-bottom: 2px;
       color: #ffffff;
-      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.85);
+      -webkit-text-stroke: 2.8px #000000;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.55));
     }
 
     .popups-card-title .pop-word {
@@ -642,8 +644,7 @@
     }
 
     .popups-card-title .rain-word {
-      color: #14532d;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.4);
+      color: #15803d;
     }
 
     .popups-preview-box {
@@ -673,14 +674,8 @@
       transition: transform 0.15s ease, background 0.15s ease;
     }
 
-    .tool-card:hover .popups-mini-badge:nth-child(1) {
-      transform: translateY(-2px) scale(1.05);
-    }
-    .tool-card:hover .popups-mini-badge:nth-child(2) {
-      transform: translateY(2px) scale(1.05);
-    }
-    .tool-card:hover .popups-mini-badge:nth-child(3) {
-      transform: translateY(-2px) scale(1.05);
+    .tool-card:hover .popups-mini-badge {
+      transform: translateY(-3px) scale(1.05);
     }
 
     .card-twitter {
