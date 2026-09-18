@@ -176,55 +176,52 @@
       right: 28px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 16px;
       z-index: 100;
     }
 
-    .social-pill {
+    .social-link {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: #ffffff;
-      color: #1a1a1a;
+      gap: 6px;
+      color: #333333;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
-      padding: 7px 14px;
-      border-radius: 999px;
-      border: 2px solid #111111;
-      box-shadow: 0 3px 0 #111111;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+      padding: 4px 4px;
+      border-radius: 6px;
+      transition: color 0.15s ease, transform 0.15s ease;
       user-select: none;
     }
 
-    .social-pill:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 0 #111111;
-      background: #f8fafc;
+    .social-link:hover {
+      color: #000000;
+      transform: translateY(-1px);
     }
 
-    .social-pill:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #111111;
+    .social-link.link-web:hover {
+      color: #2563eb;
     }
 
-    .social-pill.btn-youtube:hover {
-      background: #ff0000;
-      color: #ffffff;
+    .social-link.link-youtube:hover {
+      color: #ff0000;
     }
 
-    .social-pill.btn-github:hover {
-      background: #181717;
-      color: #ffffff;
+    .social-link.link-github:hover {
+      color: #000000;
     }
 
-    .social-pill.btn-banana:hover {
-      background: #fffbeb;
-      color: #b45309;
+    .social-link.link-banana:hover {
+      color: #d97706;
     }
 
-    .social-pill svg {
+    .social-link svg {
       flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }
+
+    .social-link:hover svg {
+      transform: scale(1.1);
     }
 
     @media (max-width: 860px) {
@@ -233,6 +230,7 @@
         margin-bottom: 24px;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 14px;
       }
     }
 
@@ -835,17 +833,17 @@
   <!-- Barra Superior de Enlaces / Redes Sociales -->
   <nav class="top-social-bar" aria-label="Enlaces sociales">
     <!-- Web Oficial -->
-    <a href="https://eternodev.com" target="_blank" rel="noopener noreferrer" class="social-pill" title="Web Oficial eternodev.com">
+    <a href="https://eternodev.com" target="_blank" rel="noopener noreferrer" class="social-link link-web" title="Web Oficial EternoDev">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="2" y1="12" x2="22" y2="12"></line>
         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
       </svg>
-      <span>eternodev.com</span>
+      <span>EternoDev</span>
     </a>
 
     <!-- YouTube -->
-    <a href="https://www.youtube.com/@eternodev" target="_blank" rel="noopener noreferrer" class="social-pill btn-youtube" title="Canal de YouTube @eternodev">
+    <a href="https://www.youtube.com/@eternodev" target="_blank" rel="noopener noreferrer" class="social-link link-youtube" title="Canal de YouTube @eternodev">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
       </svg>
@@ -853,19 +851,21 @@
     </a>
 
     <!-- GitHub -->
-    <a href="https://github.com/paucg06" target="_blank" rel="noopener noreferrer" class="social-pill btn-github" title="Perfil de GitHub @paucg06">
+    <a href="https://github.com/paucg06" target="_blank" rel="noopener noreferrer" class="social-link link-github" title="Perfil de GitHub @paucg06">
       <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
       </svg>
       <span>GitHub</span>
     </a>
 
-    <!-- Buy Me a Coffee (Plátano Amarillo #FBBF24) -->
-    <a href="https://buymeacoffee.com/eternodev" target="_blank" rel="noopener noreferrer" class="social-pill btn-banana" title="Invítame a un café en Buy Me a Coffee">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="#FBBF24" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
-        <path d="M19.98 2.05a1 1 0 0 0-1.02.19c-1.3 1.13-2.9 2.07-4.64 2.87-3.66 1.68-7.9 2.45-10.82 5.37-2.3 2.3-3.23 5.48-2.58 8.68.56 2.76 2.43 4.8 5.09 5.56 3.19.91 6.84.14 9.94-2.13 2.94-2.15 4.96-5.4 5.76-9.01.5-2.28.32-4.57-.51-6.72l-.04-.11.66-.66a1 1 0 0 0-.84-1.98zm-2.45 7.15c-.65 3.03-2.34 5.74-4.8 7.54-2.56 1.87-5.59 2.5-8.19 1.76-1.89-.54-3.21-1.97-3.61-3.92-.47-2.31.2-4.63 1.83-6.26 2.44-2.44 6.16-3.13 9.42-4.63 1.65-.76 3.16-1.66 4.45-2.73.61 1.72.76 3.53.38 5.34l.52 2.9z"/>
+    <!-- Plátano (Buy Me a Coffee) -->
+    <a href="https://buymeacoffee.com/eternodev" target="_blank" rel="noopener noreferrer" class="social-link link-banana" title="Invítame a un plátano en Buy Me a Coffee">
+      <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink:0;">
+        <path d="M18.8 2.3l-1.8 1.8" stroke="#854d0e" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M17 4.1C11.6 6.8 5.6 11.2 4.4 17.4c-.4 2 .8 3.3 2.3 3.3 6.8-.9 13-7.2 14.8-13.8.4-1.6-.6-3.1-1.8-3.6z" fill="#FBBF24" stroke="#d97706" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M14.8 7.2C10.8 10 6.8 14.2 5.9 18.2" stroke="#FEF08A" stroke-width="1.3" stroke-linecap="round"/>
       </svg>
-      <span>Apóyame</span>
+      <span>Plátano</span>
     </a>
   </nav>
 
