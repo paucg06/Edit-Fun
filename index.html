@@ -604,9 +604,13 @@
       border: 1px solid #4a4a4a;
     }
 
-    /* Tarjeta 6: Pop & Rain (Simulador de Pop-ups y Lluvia) */
+    /* Tarjeta 6: PopFX (Simulador de Pop-ups, Cascada y Lluvia) */
     .card-popups {
-      background: #1e1e24;
+      background-color: #00e600;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.38)), url('assets/png/popfx_card_bg.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
       color: #ffffff;
       text-align: center;
       align-items: center;
@@ -619,7 +623,7 @@
 
     .popups-card-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 40px;
+      font-size: 42px;
       font-weight: 800;
       letter-spacing: -0.8px;
       display: flex;
@@ -629,6 +633,7 @@
       line-height: 1;
       margin-top: 2px;
       color: #ffffff;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.9);
     }
 
     .popups-card-title .pop-word {
@@ -636,7 +641,7 @@
     }
 
     .popups-card-title .rain-word {
-      color: #d4d4d8;
+      color: #f4f4f5;
     }
 
     .popups-preview-box {
@@ -651,15 +656,18 @@
     .popups-mini-badge {
       font-size: 12px;
       font-weight: 700;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 99px;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: #2b2b32;
-      color: #e4e4e7;
-      border: 1px solid #3f3f46;
-      transition: transform 0.15s ease;
+      background: rgba(18, 18, 20, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      transition: transform 0.15s ease, background 0.15s ease;
     }
 
     .tool-card:hover .popups-mini-badge:nth-child(1) {
