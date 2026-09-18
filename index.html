@@ -252,16 +252,17 @@
         font-size: 16px;
         padding: 0 10px;
       }
+    }
 
-      /* Ajuste responsive para Edit Comments */
+    @media (max-width: 520px) {
       .tool-card.card-comments {
-        padding: 20px 18px 22px 18px;
+        padding: 22px 18px 24px 18px;
       }
       .tool-card.card-comments .card-comments-wrapper {
-        gap: 8px;
+        gap: 10px;
       }
       .tool-card.card-comments .card-comments-pinned {
-        font-size: 13px;
+        font-size: 13.5px;
         gap: 6px;
       }
       .tool-card.card-comments .card-comments-pinned svg {
@@ -269,21 +270,41 @@
         height: 15px;
       }
       .tool-card.card-comments .card-comments-body {
+        gap: 16px;
+      }
+      .tool-card.card-comments .card-comments-avatar {
+        width: 58px;
+        height: 58px;
+      }
+      .tool-card.card-comments .card-comments-name {
+        font-size: clamp(20px, 5.5vw, 26px);
+        letter-spacing: -0.5px;
+      }
+      .tool-card.card-comments .card-comments-actions {
         gap: 14px;
-        padding: 0;
+      }
+      .tool-card.card-comments .card-comments-btn,
+      .tool-card.card-comments .card-comments-reply {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .tool-card.card-comments {
+        padding: 20px 14px 22px 14px;
+      }
+      .tool-card.card-comments .card-comments-body {
+        gap: 14px;
       }
       .tool-card.card-comments .card-comments-avatar {
         width: 52px;
         height: 52px;
-        transform: translateY(-2px);
       }
       .tool-card.card-comments .card-comments-name {
-        font-size: clamp(18px, 5.2vw, 24px);
-        letter-spacing: -0.5px;
+        font-size: 22px;
       }
       .tool-card.card-comments .card-comments-actions {
         gap: 12px;
-        margin-left: 0;
       }
       .tool-card.card-comments .card-comments-btn,
       .tool-card.card-comments .card-comments-reply {
@@ -419,7 +440,7 @@
       text-align: left;
       align-items: center;
       justify-content: center;
-      padding: 24px 28px;
+      padding: 26px 28px;
       font-family: 'Roboto', Arial, sans-serif;
     }
 
@@ -427,7 +448,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 12px;
       margin: 0 auto;
       width: fit-content;
       max-width: 100%;
@@ -441,6 +462,7 @@
       font-weight: 500;
       color: #606060;
       padding-left: 1px;
+      margin-bottom: 2px;
     }
 
     .card-comments-pinned svg {
@@ -475,7 +497,6 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
     }
 
     .card-comments-avatar img {
@@ -488,9 +509,9 @@
     .card-comments-content {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       gap: 6px;
       min-width: 0;
-      transform: translateY(-2px);
     }
 
     .card-comments-header {
