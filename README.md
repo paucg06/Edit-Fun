@@ -17,7 +17,7 @@ Puedes acceder a la suite completa desplegada en **GitHub Pages**:
 
 ## 🛠️ Herramientas Incluidas
 
-La suite cuenta con **5 aplicaciones web independientes** y un **Hub principal** ([index.html](index.html)):
+La suite cuenta con **6 aplicaciones web independientes** y un **Hub principal** ([index.html](index.html)):
 
 ### 1. 🔍 GoogleFake (`google.html`)
 * **Propósito**: Simulador dinámico del buscador de Google para insertar búsquedas y transiciones realistas en vídeos.
@@ -58,6 +58,17 @@ La suite cuenta con **5 aplicaciones web independientes** y un **Hub principal**
   * Sonidos sintetizados por **Web Audio API** (*Pitido Digital*, *Campana*, *Alarma Doble*, *Silencio*).
   * Sincronización en tiempo real entre el panel y el display.
 
+### 6. 💥 Pop & Rain (`popups.html`)
+* **Propósito**: Generador dinámico de cascadas de ventanas/errores (rastro diagonal estilo Windows crash), pop-ups dispersos y lluvia de partículas.
+* **Características**:
+  * **Zona Dropzone Drag & Drop (`+`)**: Sube múltiples imágenes al instante con visor de miniaturas y eliminación individual.
+  * **Presets Rápidos Integrados**: *Errores Windows / Virus*, *Billetes de $100*, *Comentarios de YouTube*, *Likes y Reacciones*, *Monedas de Oro*.
+  * **3 Modos de Animación Completos**:
+    * **Cascada (Rastro Diagonal)**: Duplica y agrupa las ventanas en diagonales sucesivas con paso en píxeles (efecto clásico de ventana congelada / error en cadena).
+    * **Pop-ups (Aparición)**: Aparición progresiva en pantalla con efecto glitch/hackeado o rebote.
+    * **Lluvia 3D**: Caída de partículas con física oscilante y balanceo tridimensional.
+  * **Diseñado para Edición**: Fondos croma verde y azul, modo limpio con la tecla `H` para grabación con OBS y atajos de teclado rápidos.
+
 ---
 
 ## 📁 Estructura del Proyecto
@@ -70,6 +81,7 @@ Edit-Fun/
 ├── errors.html                   # Herramienta 3: Windows Errors
 ├── comments.html                 # Herramienta 4: Edit Comments
 ├── timer.html                    # Herramienta 5: Time Up
+├── popups.html                   # Herramienta 6: Pop & Rain
 ├── README.md                     # Documentación del repositorio
 └── assets/
     ├── png/                      # Iconos, favicons y recursos gráficos PNG

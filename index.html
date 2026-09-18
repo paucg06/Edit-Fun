@@ -564,6 +564,74 @@
       border: 1px solid #4a4a4a;
     }
 
+    /* Tarjeta 6: Pop & Rain (Simulador de Pop-ups y Lluvia) */
+    .card-popups {
+      background: #1e1e24;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 26px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .popups-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      line-height: 1;
+      margin-top: 2px;
+      color: #ffffff;
+    }
+
+    .popups-card-title .pop-word {
+      color: #ffffff;
+    }
+
+    .popups-card-title .rain-word {
+      color: #d4d4d8;
+    }
+
+    .popups-preview-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .popups-mini-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #2b2b32;
+      color: #e4e4e7;
+      border: 1px solid #3f3f46;
+      transition: transform 0.15s ease;
+    }
+
+    .tool-card:hover .popups-mini-badge:nth-child(1) {
+      transform: translateY(-2px) scale(1.05);
+    }
+    .tool-card:hover .popups-mini-badge:nth-child(2) {
+      transform: translateY(2px) scale(1.05);
+    }
+    .tool-card:hover .popups-mini-badge:nth-child(3) {
+      transform: translateY(-2px) scale(1.05);
+    }
+
     .card-twitter {
       background: #f4f9ff;
     }
@@ -934,6 +1002,19 @@
       <div class="timer-card-pills">
         <span class="timer-mini-pill pill-parar">Parar</span>
         <span class="timer-mini-pill pill-reiniciar">Reiniciar</span>
+      </div>
+    </a>
+
+    <!-- TARJETA 6: Pop & Rain (Simulador de Pop-ups y Lluvia de Imágenes) -->
+    <a href="popups.html" class="tool-card card-popups">
+      <h2 class="card-title popups-card-title">
+        <span class="pop-word">Pop</span> <span>&</span> <span class="rain-word">Rain</span>
+      </h2>
+
+      <div class="popups-preview-box">
+        <span class="popups-mini-badge">Pop-ups</span>
+        <span class="popups-mini-badge">Lluvia 3D</span>
+        <span class="popups-mini-badge">Croma</span>
       </div>
     </a>
 
