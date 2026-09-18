@@ -125,3 +125,14 @@ Para publicar este proyecto gratis con **GitHub Pages**:
 * 📺 **YouTube**: [@eternodev](https://www.youtube.com/@eternodev)
 * 🐙 **GitHub**: [@paucg06](https://github.com/paucg06)
 * 🍌 **Buy Me a Coffee**: [buymeacoffee.com/eternodev](https://buymeacoffee.com/eternodev)
+
+---
+
+## 📜 Licencia
+
+Copyright (c) 2026 **Pau / EternoDev**. Todos los derechos reservados.
+
+Este proyecto cuenta con una **Licencia Propietaria de Código Visible y Uso Personal No Comercial** ([LICENSE](LICENSE)):
+* ✅ **Permitido**: Ver, inspeccionar el código fuente y utilizar la aplicación de forma personal y privada en local.
+* ❌ **Prohibido**: Republicar, redistribuir, re-hostear en otras webs o servidores, vender o utilizar comercialmente total o parcialmente este software sin autorización expresa.
+
