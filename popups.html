@@ -234,6 +234,60 @@
     }
 
     /* ========================================================
+       MENSAJE DE BIENVENIDA INICIAL (DISCRETO Y CENTRADO)
+       ======================================================== */
+    .welcome-hint {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(24, 24, 27, 0.92);
+      border: 1.5px solid #3f3f46;
+      border-radius: 14px;
+      padding: 16px 24px;
+      text-align: center;
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .welcome-hint:hover {
+      border-color: #71717a;
+      background: rgba(39, 39, 42, 0.98);
+      transform: translate(-50%, -52%);
+    }
+
+    .welcome-hint.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -44%);
+    }
+
+    .welcome-hint-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .welcome-hint-sub {
+      font-size: 12px;
+      color: #a1a1aa;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ========================================================
        PANEL DE CONTROL FLOTANTE A LA DERECHA
        ======================================================== */
     .control-panel {
@@ -369,6 +423,7 @@
       justify-content: center;
       flex-shrink: 0;
       margin: 0 auto;
+      pointer-events: none;
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease;
     }
 
@@ -387,6 +442,7 @@
       font-weight: 700;
       color: #f3f4f6;
       letter-spacing: -0.2px;
+      pointer-events: none;
     }
 
     #file-input {
@@ -397,6 +453,7 @@
       height: 100%;
       opacity: 0;
       cursor: pointer;
+      z-index: 10;
     }
 
     /* Presets Rápidos */
@@ -1150,7 +1207,15 @@
     }
   </style>
 </head>
-<body class="bg-dark">
+<body class="bg-transparent">
+
+  <!-- Mensaje de bienvenida inicial en el centro (Desaparece al abrir el panel o interactuar) -->
+  <div id="welcome-hint" class="welcome-hint" title="Haz clic o pulsa H para abrir el panel">
+    <div class="welcome-hint-title">Crea tu animación PopFX</div>
+    <div class="welcome-hint-sub">
+      Pulsa <kbd class="keyboard-badge">H</kbd> o toca los tres puntos arriba para configurar
+    </div>
+  </div>
 
   <!-- Botón 3 Puntos Arriba a la Derecha (Estilo común de Edit-Fun) -->
   <button class="top-menu-btn" id="menu-btn" title="Configurar PopFX">
@@ -1451,7 +1516,7 @@
               <span class="setting-label">Límite en pantalla</span>
               <span class="setting-value" id="val-max-items">Infinito</span>
             </div>
-            <input type="range" id="param-max-items" min="10" max="250" step="10" value="250">
+            <input type="range" id="param-max-items" min="10" max="500" step="10" value="500">
           </div>
 
           <div class="sound-control-wrap">
@@ -1539,9 +1604,9 @@
           <div class="bg-selector-row">
             <button class="bg-color-dot dot-green" data-bg="bg-croma-green" title="Verde Croma"></button>
             <button class="bg-color-dot dot-blue" data-bg="bg-croma-blue" title="Azul Croma"></button>
-            <button class="bg-color-dot dot-dark active" data-bg="bg-dark" title="Negro Studio"></button>
+            <button class="bg-color-dot dot-dark" data-bg="bg-dark" title="Negro Studio"></button>
             <button class="bg-color-dot dot-white" data-bg="bg-light" title="Blanco"></button>
-            <button class="bg-color-dot dot-transparent" data-bg="bg-transparent" title="Transparente"></button>
+            <button class="bg-color-dot dot-transparent active" data-bg="bg-transparent" title="Transparente"></button>
           </div>
         </div>
 
@@ -1592,9 +1657,9 @@
     const stage = document.getElementById('stage');
     const controlPanel = document.getElementById('control-panel');
 
-    const MAX_STAGE_ELEMENTS = 250;
+    const MAX_STAGE_ELEMENTS = 500;
 
-    // Inserción segura en el DOM con límite FIFO de 250 elementos
+    // Inserción segura en el DOM con límite FIFO de 500 elementos
     function appendToStage(elem) {
       while (stage.childElementCount >= MAX_STAGE_ELEMENTS) {
         const oldest = stage.firstElementChild;
@@ -1856,6 +1921,12 @@
     fileInput.addEventListener('change', (e) => {
       if (e.target.files.length) {
         addImagesToPool(e.target.files);
+      }
+    });
+
+    dropzone.addEventListener('click', (e) => {
+      if (e.target !== fileInput) {
+        fileInput.click();
       }
     });
 
@@ -2307,7 +2378,7 @@
     bindSlider('param-item-size', 'val-item-size', ' px');
     bindSlider('param-rotation', 'val-rotation', '°');
     document.getElementById('param-max-items').addEventListener('input', (e) => {
-      document.getElementById('val-max-items').textContent = e.target.value >= 250 ? 'Infinito' : e.target.value;
+      document.getElementById('val-max-items').textContent = e.target.value >= 500 ? 'Infinito' : e.target.value;
     });
 
     bindSlider('param-rain-speed', 'val-rain-speed', ' px/frame');
@@ -2498,7 +2569,7 @@
       if (imagesList.length === 0) return;
 
       const maxLimit = parseInt(document.getElementById('param-max-items').value);
-      const isInfinite = maxLimit >= 250;
+      const isInfinite = maxLimit >= 500;
       const effectiveLimit = isInfinite ? MAX_STAGE_ELEMENTS : maxLimit;
 
       // Limpieza preventiva FIFO para evitar saturación de pantalla y mantener 60fps
@@ -2602,7 +2673,7 @@
       if (!isPlaying || currentMode !== 'popups') return;
       const baseSpeed = parseInt(document.getElementById('param-spawn-speed').value);
       const maxLimit = parseInt(document.getElementById('param-max-items').value);
-      const isInfinite = maxLimit >= 250;
+      const isInfinite = maxLimit >= 500;
 
       const progress = isInfinite
         ? (Date.now() - animationStartTime) / 6000
@@ -2748,7 +2819,25 @@
     const playText = document.getElementById('play-text');
     const btnReset = document.getElementById('btn-reset');
 
+    /* Descartar mensaje inicial de bienvenida */
+    function dismissWelcomeHint() {
+      const hint = document.getElementById('welcome-hint');
+      if (hint && !hint.classList.contains('hidden')) {
+        hint.classList.add('hidden');
+        setTimeout(() => hint.remove(), 400);
+      }
+    }
+
+    const welcomeHint = document.getElementById('welcome-hint');
+    if (welcomeHint) {
+      welcomeHint.addEventListener('click', () => {
+        dismissWelcomeHint();
+        showPanel();
+      });
+    }
+
     function togglePlayback() {
+      dismissWelcomeHint();
       if (imagesList.length === 0) {
         showToast('Añade al menos una imagen antes de empezar');
         return;
@@ -2809,6 +2898,7 @@
     }
 
     function showPanel() {
+      dismissWelcomeHint();
       controlPanel.classList.remove('hidden');
     }
 
