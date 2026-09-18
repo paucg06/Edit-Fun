@@ -876,6 +876,80 @@
       color: #d4d4d8;
     }
 
+    /* Controles y botón de sonido customizado */
+    .sound-control-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .btn-upload-sound {
+      background: transparent;
+      border: none;
+      color: #a1a1aa;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .btn-upload-sound:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      text-decoration: underline;
+    }
+
+    .btn-upload-sound svg {
+      flex-shrink: 0;
+    }
+
+    .custom-sound-active-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(63, 63, 70, 0.45);
+      border: 1px solid #52525b;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: #f3f4f6;
+      max-width: 170px;
+    }
+
+    .custom-sound-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+      font-weight: 500;
+    }
+
+    .btn-remove-sound {
+      background: transparent;
+      border: none;
+      color: #f87171;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease;
+    }
+
+    .btn-remove-sound:hover {
+      color: #ef4444;
+    }
+
     /* Selectores de fondo Croma */
     .bg-selector-row {
       display: flex;
@@ -1289,15 +1363,18 @@
             <input type="range" id="param-cascade-len" min="8" max="70" step="2" value="25">
           </div>
 
-          <label class="custom-checkbox-row">
-            <input type="checkbox" id="param-cascade-sound" class="custom-checkbox-input" checked>
-            <span class="custom-checkbox-box">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </span>
-            <span class="custom-checkbox-label">Reproducir sonido en cascada</span>
-          </label>
+          <div class="sound-control-wrap">
+            <label class="custom-checkbox-row">
+              <input type="checkbox" id="param-cascade-sound" class="custom-checkbox-input sound-toggle-sync" checked>
+              <span class="custom-checkbox-box">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span class="custom-checkbox-label">Reproducir sonido</span>
+            </label>
+            <div class="custom-sound-container"></div>
+          </div>
         </div>
 
         <!-- OPCIONES MODO 2: POP-UPS (DISPERSOS) -->
@@ -1361,15 +1438,22 @@
             <input type="range" id="param-max-items" min="10" max="250" step="10" value="250">
           </div>
 
-          <label class="custom-checkbox-row">
-            <input type="checkbox" id="param-play-sound" class="custom-checkbox-input" checked>
-            <span class="custom-checkbox-box">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </span>
-            <span class="custom-checkbox-label">Reproducir sonido "pop" al aparecer</span>
-          </label>
+          <div class="sound-control-wrap">
+            <label class="custom-checkbox-row">
+              <input type="checkbox" id="param-play-sound" class="custom-checkbox-input sound-toggle-sync" checked>
+              <span class="custom-checkbox-box">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span class="custom-checkbox-label">Reproducir sonido</span>
+            </label>
+            <div class="custom-sound-container"></div>
+          </div>
+        </div>
+
+        <!-- Input oculto para subir sonido personalizado -->
+        <input type="file" id="sound-file-input" accept="audio/*" style="display: none;">
         </div>
 
         <!-- OPCIONES MODO 3: LLUVIA -->
@@ -1493,9 +1577,9 @@
     const stage = document.getElementById('stage');
     const controlPanel = document.getElementById('control-panel');
 
-    const MAX_STAGE_ELEMENTS = 500;
+    const MAX_STAGE_ELEMENTS = 250;
 
-    // Inserción segura en el DOM con límite FIFO de 500 elementos
+    // Inserción segura en el DOM con límite FIFO de 250 elementos
     function appendToStage(elem) {
       while (stage.childElementCount >= MAX_STAGE_ELEMENTS) {
         const oldest = stage.firstElementChild;
@@ -1513,13 +1597,18 @@
     let currentMode = 'cascade'; // 'cascade' | 'popups' | 'rain'
     let soundEnabled = true;
 
+    // Gestión de sonido personalizado y limitación de frecuencia (Anti-saturation / Petardeo)
+    let customAudioBuffer = null;
+    let customAudioFileName = '';
+    let lastSoundPlayTime = 0;
+
     // Timers de motores
     let cascadeIntervalId = null;
     let popupIntervalId = null;
     let rainAnimationFrameId = null;
     let activeRainParticles = [];
 
-    // Web Audio API para síntesis de efectos de sonido "pop"
+    // Web Audio API para síntesis y reproducción de sonido con variación de pitch
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) {
@@ -1532,30 +1621,60 @@
     }
 
     function playPopSound(low = false) {
-      if (!soundEnabled) return;
+      const cascadeSound = document.getElementById('param-cascade-sound');
+      const popupSound = document.getElementById('param-play-sound');
+      const isEnabled = (currentMode === 'cascade' && cascadeSound && cascadeSound.checked) ||
+                        (currentMode === 'popups' && popupSound && popupSound.checked) ||
+                        (currentMode === 'rain' && soundEnabled);
+
+      if (!isEnabled) return;
+
+      const nowPerf = performance.now();
+      // Protección contra petardeo/saturación de audio: mínimo 32ms entre disparos simultáneos
+      if (nowPerf - lastSoundPlayTime < 32) return;
+      lastSoundPlayTime = nowPerf;
+
       try {
         const ctx = getAudioContext();
         if (!ctx) return;
         if (ctx.state === 'suspended') {
           ctx.resume();
         }
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
 
-        const now = ctx.currentTime;
-        const freq = low ? 360 + Math.random() * 80 : 540 + Math.random() * 160;
+        if (customAudioBuffer) {
+          // Reproducir archivo de audio personalizado del usuario con sutil variación orgánica de pitch
+          const src = ctx.createBufferSource();
+          src.buffer = customAudioBuffer;
+          // Variación leve de pitch entre 0.95x y 1.05x para que no suene robótico
+          const pitchVariation = 0.95 + (Math.random() * 0.10);
+          src.playbackRate.setValueAtTime(pitchVariation, ctx.currentTime);
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now);
-        osc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
+          const gain = ctx.createGain();
+          gain.gain.setValueAtTime(0.4, ctx.currentTime);
 
-        gain.gain.setValueAtTime(0.24, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+          src.connect(gain);
+          gain.connect(ctx.destination);
+          src.start(0);
+        } else {
+          // Sonido sintetizado por defecto
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.07);
+          const now = ctx.currentTime;
+          const freq = low ? 360 + Math.random() * 80 : 540 + Math.random() * 160;
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+          osc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
+
+          gain.gain.setValueAtTime(0.24, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.07);
+        }
       } catch (err) {
         console.warn('AudioContext error:', err);
       }
@@ -2707,6 +2826,94 @@
       }
     });
 
+    /* ========================================================
+       SONIDO CUSTOMIZADO (SUBIDA, REPRODUCCIÓN Y VARIACIÓN)
+       ======================================================== */
+    const soundFileInput = document.getElementById('sound-file-input');
+
+    function updateCustomSoundUI() {
+      const containers = document.querySelectorAll('.custom-sound-container');
+      containers.forEach(container => {
+        if (customAudioBuffer && customAudioFileName) {
+          container.innerHTML = `
+            <div class="custom-sound-active-wrap" title="${customAudioFileName}">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              <span class="custom-sound-name">${customAudioFileName}</span>
+              <button type="button" class="btn-remove-sound" title="Quitar sonido y volver al predeterminado">&times;</button>
+            </div>
+          `;
+          const btnRemove = container.querySelector('.btn-remove-sound');
+          if (btnRemove) {
+            btnRemove.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              customAudioBuffer = null;
+              customAudioFileName = '';
+              if (soundFileInput) soundFileInput.value = '';
+              updateCustomSoundUI();
+            });
+          }
+        } else {
+          container.innerHTML = `
+            <button type="button" class="btn-upload-sound" title="Subir archivo de audio propio (.mp3, .wav, .ogg)">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              <span>Subir sonido customizado</span>
+            </button>
+          `;
+          const btnUpload = container.querySelector('.btn-upload-sound');
+          if (btnUpload) {
+            btnUpload.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (soundFileInput) soundFileInput.click();
+            });
+          }
+        }
+      });
+    }
+
+    if (soundFileInput) {
+      soundFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const arrayBuffer = ev.target.result;
+          const ctx = getAudioContext();
+          if (!ctx) return;
+          ctx.decodeAudioData(arrayBuffer.slice(0), (decoded) => {
+            customAudioBuffer = decoded;
+            customAudioFileName = file.name;
+            updateCustomSoundUI();
+            playPopSound();
+          }, (err) => {
+            console.error('Error decodificando audio:', err);
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+    // Sincronizar selectores de sonido entre pestañas
+    document.querySelectorAll('.sound-toggle-sync').forEach(chk => {
+      chk.addEventListener('change', (e) => {
+        document.querySelectorAll('.sound-toggle-sync').forEach(other => {
+          other.checked = e.target.checked;
+        });
+      });
+    });
+
+    // Inicializar UI de sonido customizado
+    updateCustomSoundUI();
   </script>
 </body>
 </html>
