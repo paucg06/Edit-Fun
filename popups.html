@@ -828,23 +828,62 @@
       cursor: pointer;
     }
 
-    /* Checkbox estilizado */
-    .checkbox-row {
+    /* Toggle switch redondeado personalizado para sonido */
+    .toggle-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       cursor: pointer;
       user-select: none;
+      padding: 4px 0;
     }
 
-    .checkbox-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: #52525b;
-      cursor: pointer;
+    .toggle-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
     }
 
-    .checkbox-label {
+    .toggle-switch {
+      width: 36px;
+      height: 20px;
+      background: #27272a;
+      border: 1.5px solid #3f3f46;
+      border-radius: 20px;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      background: #a1a1aa;
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .toggle-input:checked + .toggle-switch {
+      background: #3f3f46;
+      border-color: #71717a;
+    }
+
+    .toggle-input:checked + .toggle-switch::after {
+      transform: translateX(16px);
+      background: #ffffff;
+    }
+
+    .toggle-row:hover .toggle-switch {
+      border-color: #71717a;
+    }
+
+    .toggle-label {
       font-size: 12.5px;
       font-weight: 600;
       color: #d4d4d8;
@@ -916,7 +955,7 @@
       color: #ffffff;
       border: 1.5px solid #059669;
       border-radius: 10px;
-      padding: 11px 16px;
+      padding: 11px 14px;
       font-size: 13.5px;
       font-weight: 700;
       font-family: inherit;
@@ -924,7 +963,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
       box-shadow: none;
       transition: all 0.15s ease;
     }
@@ -944,13 +983,13 @@
       box-shadow: none;
     }
 
-    .btn-main-reset {
+    .btn-main-reset, .btn-main-hide {
       flex: 1;
       background: #27272a;
       color: #f3f4f6;
       border: 1.5px solid #3f3f46;
       border-radius: 10px;
-      padding: 11px 12px;
+      padding: 11px 10px;
       font-size: 13px;
       font-weight: 700;
       font-family: inherit;
@@ -963,16 +1002,16 @@
       transition: all 0.15s ease;
     }
 
-    .btn-main-reset:hover {
+    .btn-main-reset:hover, .btn-main-hide:hover {
       background: #3f3f46;
       border-color: #52525b;
     }
 
-    .btn-main-reset:active {
+    .btn-main-reset:active, .btn-main-hide:active {
       background: #202024;
     }
 
-    /* Enlace de Salir al Menú (Centrado y ancho completo) */
+    /* Enlace de Salir al Menú (Texto limpio centrado sin bordes de botón) */
     .footer-sub-links {
       display: flex;
       justify-content: center;
@@ -981,27 +1020,31 @@
     }
 
     .exit-link {
-      width: 100%;
+      background: transparent;
+      border: none;
+      box-shadow: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 9px 14px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid #27272a;
+      padding: 6px 12px;
       color: #a1a1aa;
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
-      transition: all 0.15s ease;
+      cursor: pointer;
+      transition: color 0.15s ease, opacity 0.15s ease;
     }
 
     .exit-link:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: #3f3f46;
       color: #ffffff;
+      background: transparent;
+      border: none;
       text-decoration: none;
+    }
+
+    .exit-link:active {
+      color: #d4d4d8;
+      opacity: 0.75;
     }
 
     .keyboard-badge {
@@ -1325,9 +1368,10 @@
             <input type="range" id="param-cascade-len" min="8" max="70" step="2" value="25">
           </div>
 
-          <label class="checkbox-row">
-            <input type="checkbox" id="param-cascade-sound" checked>
-            <span class="checkbox-label">Reproducir sonido en cascada</span>
+          <label class="toggle-row">
+            <input type="checkbox" id="param-cascade-sound" class="toggle-input" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">Reproducir sonido en cascada</span>
           </label>
         </div>
 
@@ -1368,11 +1412,11 @@
           <div class="setting-row">
             <span class="setting-label">Efecto de entrada</span>
             <select class="custom-select" id="param-anim-effect">
-              <option value="anim-hacked" selected>Efecto Hackeado (Glitch)</option>
-              <option value="anim-bounce">Rebote Elástico (Pop Bounce)</option>
+              <option value="anim-bounce" selected>Rebote Elástico (Pop Bounce)</option>
               <option value="anim-drop">Caída Rápida (Drop In)</option>
               <option value="anim-zoom">Zoom</option>
               <option value="anim-fade">Desvanecimiento (Fade)</option>
+              <option value="anim-hacked">Efecto Hackeado (Glitch)</option>
             </select>
           </div>
 
@@ -1392,9 +1436,10 @@
             <input type="range" id="param-max-items" min="10" max="250" step="10" value="250">
           </div>
 
-          <label class="checkbox-row">
-            <input type="checkbox" id="param-play-sound" checked>
-            <span class="checkbox-label">Reproducir sonido "pop" al aparecer</span>
+          <label class="toggle-row">
+            <input type="checkbox" id="param-play-sound" class="toggle-input" checked>
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">Reproducir sonido "pop" al aparecer</span>
           </label>
         </div>
 
@@ -1494,17 +1539,16 @@
           </svg>
           <span>Limpiar</span>
         </button>
+        <button class="btn-main-hide" id="btn-hide-panel" title="Ocultar Menú (H)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+          </svg>
+          <span>Ocultar</span>
+        </button>
       </div>
 
       <div class="footer-sub-links">
-        <a href="index.html" class="exit-link">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-          </svg>
-          <span>Volver al Menú</span>
-        </a>
+        <a href="index.html" class="exit-link">Salir al menú</a>
       </div>
     </div>
   </aside>
@@ -1530,6 +1574,21 @@
     const btnRestorePanel = document.getElementById('btn-restore-panel');
     const toastMsg = document.getElementById('toast-msg');
 
+    const MAX_STAGE_ELEMENTS = 500;
+
+    // Inserción segura en el DOM con límite FIFO de 500 elementos
+    function appendToStage(elem) {
+      while (stage.childElementCount >= MAX_STAGE_ELEMENTS) {
+        const oldest = stage.firstElementChild;
+        if (oldest) {
+          oldest.remove();
+        } else {
+          break;
+        }
+      }
+      stage.appendChild(elem);
+    }
+
     let imagesList = []; // Array de DataURLs o URLs de imágenes
     let isPlaying = false;
     let currentMode = 'cascade'; // 'cascade' | 'popups' | 'rain'
@@ -1547,7 +1606,7 @@
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
-      if (audioCtx.state === 'suspended') {
+      if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
       return audioCtx;
@@ -1557,24 +1616,27 @@
       if (!soundEnabled) return;
       try {
         const ctx = getAudioContext();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
 
         const now = ctx.currentTime;
-        const freq = low ? 420 + Math.random() * 80 : 580 + Math.random() * 180;
+        const freq = low ? 360 + Math.random() * 80 : 540 + Math.random() * 160;
 
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now);
-        osc.frequency.exponentialRampToValueAtTime(100, now + 0.05);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
 
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+        gain.gain.setValueAtTime(0.24, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
 
         osc.connect(gain);
         gain.connect(ctx.destination);
-
         osc.start(now);
-        osc.stop(now + 0.06);
+        osc.stop(now + 0.07);
       } catch (err) {
         console.warn('AudioContext error:', err);
       }
@@ -2306,7 +2368,7 @@
         const img = document.createElement('img');
         img.src = stream.img;
         elem.appendChild(img);
-        stage.appendChild(elem);
+        appendToStage(elem);
         spawnedAny = true;
 
         stream.x += stream.dx;
@@ -2395,6 +2457,12 @@
           first.remove();
           currentPopCount--;
         }
+      } else if (isInfinite && currentPopCount >= MAX_STAGE_ELEMENTS) {
+        const first = stage.querySelector('.spawn-item');
+        if (first) {
+          first.remove();
+          currentPopCount--;
+        }
       }
 
       const progress = isInfinite
@@ -2426,7 +2494,7 @@
       img.src = randomImg;
       elem.appendChild(img);
 
-      stage.appendChild(elem);
+      appendToStage(elem);
       currentPopCount++;
 
       if (soundCheck) {
@@ -2489,7 +2557,7 @@
       const img = document.createElement('img');
       img.src = randomImg;
       elem.appendChild(img);
-      stage.appendChild(elem);
+      appendToStage(elem);
 
       const posX = Math.random() * (window.innerWidth - finalWidth);
       const startY = direction === 'down' ? -finalWidth - 40 : window.innerHeight + 40;
@@ -2593,6 +2661,7 @@
       isPlaying = !isPlaying;
 
       if (isPlaying) {
+        getAudioContext();
         animationStartTime = Date.now();
         btnPlay.classList.add('playing');
         playText.textContent = 'Pausar';
