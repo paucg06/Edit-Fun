@@ -615,28 +615,27 @@
       text-align: center;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      padding: 24px 20px 20px 20px;
+      gap: 14px;
+      padding: 22px 18px;
       position: relative;
       overflow: hidden;
     }
 
     .popups-card-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(70px, 9.2vw, 96px);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(48px, 6vw, 62px) !important;
       font-weight: 900;
-      letter-spacing: -2px;
+      letter-spacing: -1.5px;
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: center;
       gap: 0px;
-      line-height: 0.95;
-      margin-top: 0px;
-      margin-bottom: 2px;
+      line-height: 1;
+      margin: 0;
       color: #ffffff;
-      -webkit-text-stroke: 6.5px #000000;
+      -webkit-text-stroke: 4px #000000;
       paint-order: stroke fill;
-      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+      filter: drop-shadow(0 4px 0 #000000) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
     }
 
     .popups-card-title .pop-word {
@@ -644,7 +643,7 @@
     }
 
     .popups-card-title .rain-word {
-      color: #16a34a;
+      color: #22c55e;
     }
 
     .popups-preview-box {
@@ -665,7 +664,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(18, 18, 20, 0.9);
+      background: rgba(18, 18, 20, 0.92);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       color: #ffffff;
@@ -1055,7 +1054,7 @@
 
     <!-- TARJETA 6: PopFX (Simulador de Pop-ups, Cascada y Lluvia de Imágenes) -->
     <a href="popups.html" class="tool-card card-popups">
-      <h2 class="card-title popups-card-title">
+      <h2 class="popups-card-title">
         <span class="pop-word">Pop</span><span class="rain-word">FX</span>
       </h2>
 
