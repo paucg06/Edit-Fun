@@ -49,7 +49,7 @@ La suite cuenta con **6 aplicaciones web independientes** y un **Hub principal**
   * Fila de **Comentario Fijado** ("Fijado por...") y **Corazón del Creador** con miniatura superpuesta.
   * Exportación directa a imagen **PNG de alta resolución** y vector **SVG**.
 
-### 5. ⏱️ Time Up (`timer.html`)
+### 5. ⏱️ Time Up (`timeup.html` / `/timeup`)
 * **Propósito**: Temporizador digital de 7 segmentos y cronómetro con físicas de velocidad avanzadas.
 * **Características**:
   * Tipografía digital retro auténtica (`DSEG7-Classic`).
@@ -58,7 +58,7 @@ La suite cuenta con **6 aplicaciones web independientes** y un **Hub principal**
   * Sonidos sintetizados por **Web Audio API** (*Pitido Digital*, *Campana*, *Alarma Doble*, *Silencio*).
   * Sincronización en tiempo real entre el panel y el display.
 
-### 6. 💥 PopFX (`popups.html`)
+### 6. 💥 PopFX (`popfx.html` / `/popfx`)
 * **Propósito**: Generador dinámico de cascadas de ventanas/errores (rastro diagonal estilo Windows crash), pop-ups dispersos y lluvia de partículas.
 * **Características**:
   * **Zona Dropzone Drag & Drop (`+`)**: Sube múltiples imágenes al instante con visor de miniaturas y eliminación individual.
@@ -76,12 +76,12 @@ La suite cuenta con **6 aplicaciones web independientes** y un **Hub principal**
 ```
 Edit-Fun/
 ├── index.html                    # Menú principal y hub interactivo
-├── google.html                   # Herramienta 1: GoogleFake
-├── views.html                    # Herramienta 2: 999,999 Views
-├── errors.html                   # Herramienta 3: Windows Errors
-├── comments.html                 # Herramienta 4: Edit Comments
-├── timer.html                    # Herramienta 5: Time Up
-├── popups.html                   # Herramienta 6: PopFX
+├── googlefake.html               # Herramienta 1: GoogleFake (/googlefake)
+├── 999999views.html              # Herramienta 2: 999,999 Views (/999999views)
+├── windowserrors.html            # Herramienta 3: Windows Errors (/windowserrors)
+├── editcomments.html             # Herramienta 4: Edit Comments (/editcomments)
+├── timeup.html                   # Herramienta 5: Time Up (/timeup)
+├── popfx.html                    # Herramienta 6: PopFX (/popfx)
 ├── README.md                     # Documentación del repositorio
 ├── LICENSE                       # Licencia oficial CC BY-NC-ND 4.0
 └── assets/
@@ -93,8 +93,7 @@ Edit-Fun/
     │   ├── popfx_card_bg.png
     │   ├── popfx_icon.png
     │   ├── time_up_icon.png
-    │   ├── windows_error_icon.png
-    │   └── windowserror_icon.png
+    │   └── windows_error_icon.png
     ├── svg/                      # Vectores e iconos SVG
     │   ├── Dilike_U.svg
     │   ├── Dislike.svg
