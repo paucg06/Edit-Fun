@@ -2,15 +2,19 @@
 <html lang="es">
 <head>
   <script>
-    if (window.location.pathname.endsWith('.html')) {
-      const cleanPath = window.location.pathname.replace(/\.html$/, '');
-      window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
-    }
+    (function() {
+      let p = window.location.pathname;
+      if (p.endsWith('.html')) p = p.replace(/\.html$/, '');
+      if (p.endsWith('/') && p !== '/') p = p.slice(0, -1);
+      if (p !== window.location.pathname) {
+        window.history.replaceState(null, '', p + window.location.search + window.location.hash);
+      }
+    })();
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EditFun</title>
-  <link rel="icon" href="assets/png/editfun_icon.png" type="image/png">
+  <link rel="icon" href="/assets/png/editfun_icon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   
@@ -18,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Koulen&family=Slackey&family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Roboto:wght@700;900&family=Google+Sans:wght@700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 
 </head>
 <body>
@@ -98,7 +102,7 @@
   <div class="grid-container">
     
     <!-- TARJETA 1: GoogleFake -->
-    <a href="googlefake" class="tool-card card-google">
+    <a href="/googlefake" class="tool-card card-google">
       <h2 class="card-title google-fake-title">
         <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span><span class="fake-tag">Fake</span>
       </h2>
@@ -112,7 +116,7 @@
     </a>
 
     <!-- TARJETA 2: 999,999 views (YouTube Simulator) -->
-    <a href="999999views" class="tool-card card-views">
+    <a href="/999999views" class="tool-card card-views">
       <h2 class="card-title views-card-title">
         <span class="number-koulen">999,999</span> <span class="red-views">Views</span>
       </h2>
@@ -135,7 +139,7 @@
     </a>
 
         <!-- TARJETA 3: Windows Error -->
-    <a href="windowserrors" class="tool-card card-errors">
+    <a href="/windowserrors" class="tool-card card-errors">
       <h2 class="card-title errors-card-title">
         <span>Windows Error</span> <span class="meme-face-card">( ._.)</span>
       </h2>
@@ -147,7 +151,7 @@
     </a>
 
     <!-- TARJETA 4: Edit Comments (Full YouTube Comment Card) -->
-    <a href="editcomments" class="tool-card card-comments">
+    <a href="/editcomments" class="tool-card card-comments">
       <div class="card-comments-wrapper">
         <!-- Pinned Row -->
         <div class="card-comments-pinned">
@@ -161,7 +165,7 @@
         <div class="card-comments-body">
           <!-- Avatar -->
           <div class="card-comments-avatar">
-            <img src="assets/png/editfun_icon.png" alt="Avatar">
+            <img src="/assets/png/editfun_icon.png" alt="Avatar">
           </div>
 
           <!-- Content -->
@@ -195,7 +199,7 @@
     </a>
 
     <!-- TARJETA 5: Temporizador Digital / Cuenta Atrás -->
-    <a href="timeup" class="tool-card card-timer">
+    <a href="/timeup" class="tool-card card-timer">
       <div class="timer-card-digits">t1:ME:VP</div>
       <div class="timer-card-pills">
         <span class="timer-mini-pill pill-parar">Parar</span>
@@ -204,7 +208,7 @@
     </a>
 
     <!-- TARJETA 6: PopFX (Simulador de Pop-ups, Cascada y Lluvia de Imágenes) -->
-    <a href="popfx" class="tool-card card-popups">
+    <a href="/popfx" class="tool-card card-popups">
       <h2 class="popups-card-title">
         <span class="pop-word">Pop</span><span class="rain-word">FX</span>
       </h2>
@@ -221,7 +225,7 @@
   <!-- Toast Notification -->
   <div id="toast-msg"></div>
 
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 
 </body>
 </html>

@@ -327,8 +327,8 @@
         creatorThumbPreview.src = creatorAvatarBase64;
         ytCreatorHeartImg.src = creatorAvatarBase64;
       } else {
-        creatorThumbPreview.src = '../assets/png/editfun_icon.png';
-        ytCreatorHeartImg.src = '../assets/png/editfun_icon.png';
+        creatorThumbPreview.src = '/assets/png/editfun_icon.png';
+        ytCreatorHeartImg.src = '/assets/png/editfun_icon.png';
       }
     }
 
@@ -542,7 +542,7 @@
       // 10. Corazón del Creador
       if (checkCreatorHeart.checked) {
         ytCreatorHeartBox.style.display = 'inline-flex';
-        ytCreatorHeartImg.src = creatorAvatarBase64 || '../assets/png/editfun_icon.png';
+        ytCreatorHeartImg.src = creatorAvatarBase64 || '/assets/png/editfun_icon.png';
       } else {
         ytCreatorHeartBox.style.display = 'none';
       }

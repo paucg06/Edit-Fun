@@ -2,10 +2,14 @@
 <html lang="es">
 <head>
   <script>
-    if (window.location.pathname.endsWith('.html')) {
-      const cleanPath = window.location.pathname.replace(/\.html$/, '');
-      window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
-    }
+    (function() {
+      let p = window.location.pathname;
+      if (p.endsWith('.html')) p = p.replace(/\.html$/, '');
+      if (p.endsWith('/') && p !== '/') p = p.slice(0, -1);
+      if (p !== window.location.pathname) {
+        window.history.replaceState(null, '', p + window.location.search + window.location.hash);
+      }
+    })();
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/googlefake/style.css">
 
 </head>
 <body>
@@ -68,7 +72,7 @@
         <div class="popover-divider"></div>
 
         <!-- Salir al menú principal -->
-        <a href="../" class="popover-item">
+        <a href="/" class="popover-item">
           <!-- Icono Salir / Volver SVG -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -152,7 +156,7 @@
     </svg>
   </div>
 
-  <script src="script.js"></script>
+  <script src="/googlefake/script.js"></script>
 
 </body>
 </html>
