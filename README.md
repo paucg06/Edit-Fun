@@ -10,9 +10,8 @@
 
 ---
 
-## 🌐 Demo en Vivo
-Puedes acceder a la suite completa en:  
-🔗 **[https://editfun.eternodev.com/](https://editfun.eternodev.com/)** *(Alternativo: [https://paucg06.github.io/Edit-Fun/](https://paucg06.github.io/Edit-Fun/))*
+## 🌐 Enlace web
+Puedes acceder de forma gratuita en: **[editfun.eternodev.com](https://editfun.eternodev.com/)**
 
 ---
 
