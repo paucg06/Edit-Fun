@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirigiendo a EditFun...</title>
+  <script>
+    (function() {
+      var redirects = {
+        '/google': '/googlefake',
+        '/google.html': '/googlefake',
+        '/googlefake.html': '/googlefake',
+        '/views': '/999999views',
+        '/views.html': '/999999views',
+        '/999999views.html': '/999999views',
+        '/errors': '/windowserrors',
+        '/errors.html': '/windowserrors',
+        '/windowserrors.html': '/windowserrors',
+        '/comments': '/editcomments',
+        '/comments.html': '/editcomments',
+        '/editcomments.html': '/editcomments',
+        '/timer': '/timeup',
+        '/timer.html': '/timeup',
+        '/timemap': '/timeup',
+        '/timemap.html': '/timeup',
+        '/timeup.html': '/timeup',
+        '/popups': '/popfx',
+        '/popups.html': '/popfx',
+        '/popfx.html': '/popfx'
+      };
+
+      var path = window.location.pathname.replace(/\/+$/, '');
+      if (redirects[path]) {
+        window.location.replace(redirects[path] + window.location.search + window.location.hash);
+      } else {
+        window.location.replace('/' + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+</head>
+<body></body>
+</html>
