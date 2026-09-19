@@ -2,7 +2,7 @@
 > **Herramientas interactivas y simuladores visuales para editores de vídeo y creadores de contenido.**  
 > Desarrollado por **[EternoDev](https://github.com/paucg06)**.
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=flat-square&logo=github)](https://paucg06.github.io/Edit-Fun/)
+[![Live Website](https://img.shields.io/badge/Live%20Website-editfun.eternodev.com-brightgreen?style=flat-square)](https://editfun.eternodev.com/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/es/docs/Web/JavaScript)
@@ -11,8 +11,8 @@
 ---
 
 ## 🌐 Demo en Vivo
-Puedes acceder a la suite completa desplegada en **GitHub Pages**:  
-🔗 **[https://paucg06.github.io/Edit-Fun/](https://paucg06.github.io/Edit-Fun/)**
+Puedes acceder a la suite completa en:  
+🔗 **[https://editfun.eternodev.com/](https://editfun.eternodev.com/)** *(Alternativo: [https://paucg06.github.io/Edit-Fun/](https://paucg06.github.io/Edit-Fun/))*
 
 ---
 
@@ -110,20 +110,6 @@ Edit-Fun/
 
 ---
 
-## 🚀 Despliegue en GitHub Pages
-
-Para publicar este proyecto gratis con **GitHub Pages**:
-
-1. En tu repositorio en GitHub, ve a la pestaña **Settings** (Configuración).
-2. En el menú lateral izquierdo, haz clic en **Pages**.
-3. En la sección **Build and deployment > Branch**:
-   * Selecciona la rama: **`main`**
-   * Selecciona la carpeta: **`/ (root)`**
-4. Haz clic en **Save**. En un par de minutos tu web estará disponible en:  
-   `https://paucg06.github.io/Edit-Fun/`
-
----
-
 ## 👤 Autor y Redes
 * 🌐 **Web Oficial**: [eternodev.com](https://eternodev.com)
 * 📺 **YouTube**: [@eternodev](https://www.youtube.com/@eternodev)
@@ -136,7 +122,7 @@ Para publicar este proyecto gratis con **GitHub Pages**:
 
 Copyright (c) 2026 **Pau / EternoDev**. Todos los derechos reservados.
 
-Este proyecto cuenta con una **Licencia Propietaria de Código Visible y Uso Personal No Comercial** ([LICENSE](LICENSE)):
-* ✅ **Permitido**: Ver, inspeccionar el código fuente y utilizar la aplicación de forma personal y privada en local.
-* ❌ **Prohibido**: Republicar, redistribuir, re-hostear en otras webs o servidores, vender o utilizar comercialmente total o parcialmente este software sin autorización expresa.
+Este proyecto está bajo la licencia **Creative Commons Reconocimiento - No Comercial - Sin Obra Derivada 4.0 Internacional** ([LICENSE](LICENSE)):
+* ✅ **Permitido**: Ver, inspeccionar el código fuente y utilizar la aplicación de forma personal y privada.
+* ❌ **Prohibido**: Vender, monetizar o distribuir obras derivadas modificadas de este software sin autorización expresa.
 
