@@ -1,0 +1,849 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9;
+      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px 20px;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* Header Container */
+    .header-container {
+      text-align: center;
+      margin-bottom: 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Título principal fijo con Slackey */
+    .brand-title {
+      font-family: 'Slackey', cursive;
+      font-size: 74px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-transform: none;
+      color: #111111;
+      margin-bottom: 2px;
+      text-shadow: 3px 3px 0px rgba(0,0,0,0.06);
+    }
+
+    /* ========================================
+       BOTÓN YOUTUBE ROJO AUTO-ESCALABLE (EN 'em')
+       ======================================== */
+    .yt-eye-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      font-size: inherit;
+      filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.06));
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .yt-eye-badge:hover {
+      transform: scale(1.08);
+    }
+
+    .yt-red-pill {
+      background-color: #ff0000;
+      width: 1.06em;
+      height: 0.72em;
+      border-radius: 0.25em;
+      border: none;
+      box-shadow: 0 0.065em 0 #b80000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eye-pair-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .yt-eye {
+      width: 0.40em;
+      height: 0.40em;
+      background: #ffffff;
+      border-radius: 50%;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      margin: 0 -0.015em;
+      transition: height 0.12s ease, border-radius 0.12s ease;
+    }
+
+    .eyelid-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0%;
+      background: #ff0000;
+      z-index: 3;
+      transition: height 0.08s ease;
+    }
+
+    .yt-pupil {
+      width: 0.165em;
+      height: 0.165em;
+      background: #000000;
+      border-radius: 50%;
+      position: absolute;
+      top: calc(50% - 0.0825em);
+      left: calc(50% - 0.0825em);
+      transition: transform 0.04s ease-out;
+      z-index: 2;
+    }
+
+    .yt-eye.half-closed {
+      height: 0.23em !important;
+      border-radius: 0.15em !important;
+    }
+
+    /* Subtítulo */
+    .brand-subtitle {
+      font-size: 19px;
+      color: #555555;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      margin-top: 0px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .brand-subtitle .author-highlight {
+      font-family: inherit;
+      color: #FBBF24;
+      font-size: inherit;
+      font-weight: 700;
+      letter-spacing: inherit;
+      margin-left: 2px;
+      text-decoration: none !important;
+      display: inline;
+      transition: color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .brand-subtitle .author-highlight:hover {
+      color: #d97706;
+      text-decoration: none !important;
+    }
+
+    /* Barra Superior de Enlaces / Redes Sociales */
+    .top-social-bar {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #333333;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 4px;
+      border-radius: 6px;
+      transition: color 0.15s ease, transform 0.15s ease;
+      user-select: none;
+    }
+
+    .social-link:hover {
+      color: #000000;
+      transform: translateY(-1px);
+    }
+
+    .social-link.link-web:hover {
+      color: #2563eb;
+    }
+
+    .social-link.link-youtube:hover {
+      color: #ff0000;
+    }
+
+    .social-link.link-github:hover {
+      color: #000000;
+    }
+
+    .social-link.link-banana:hover {
+      color: #FBBF24;
+    }
+
+    .social-link svg {
+      flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }
+
+    .social-link:hover svg {
+      transform: scale(1.1);
+    }
+
+    /* Grid de Herramientas */
+    .grid-container {
+      width: 100%;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+
+    @media (max-width: 860px) {
+      .top-social-bar {
+        position: static;
+        order: 10;
+        margin-top: 40px;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        width: 100%;
+      }
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+      .brand-title {
+        font-size: 46px;
+      }
+      .brand-subtitle {
+        font-size: 16px;
+        padding: 0 10px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .tool-card.card-comments {
+        padding: clamp(18px, 4.2vw, 24px) clamp(14px, 4vw, 24px);
+      }
+      .tool-card.card-comments .card-comments-wrapper {
+        gap: clamp(8px, 2.2vw, 12px);
+      }
+      .tool-card.card-comments .card-comments-pinned {
+        font-size: clamp(12.5px, 2.8vw, 14px);
+        gap: clamp(6px, 1.5vw, 8px);
+      }
+      .tool-card.card-comments .card-comments-pinned svg {
+        width: clamp(14px, 3vw, 17px);
+        height: clamp(14px, 3vw, 17px);
+      }
+      .tool-card.card-comments .card-comments-body {
+        gap: clamp(12px, 3.5vw, 20px);
+      }
+      .tool-card.card-comments .card-comments-avatar {
+        width: clamp(48px, 12.5vw, 72px);
+        height: clamp(48px, 12.5vw, 72px);
+      }
+      .tool-card.card-comments .card-comments-name {
+        font-size: clamp(19px, 5.8vw, 33px);
+        letter-spacing: -0.5px;
+      }
+      .tool-card.card-comments .card-comments-actions {
+        gap: clamp(10px, 2.8vw, 16px);
+      }
+      .tool-card.card-comments .card-comments-btn,
+      .tool-card.card-comments .card-comments-reply {
+        font-size: clamp(11.5px, 2.6vw, 14px);
+      }
+      .tool-card.card-comments .card-comments-btn svg {
+        width: clamp(14px, 3vw, 17px);
+        height: clamp(14px, 3vw, 17px);
+      }
+    }
+
+    /* Estilo de Tarjetas */
+    .tool-card {
+      background: #ffffff;
+      border-radius: 22px;
+      border: 3px solid #111111;
+      box-shadow: 0 4px 0 #111111;
+      padding: 26px 28px;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 0 #111111;
+    }
+    .tool-card:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #111111;
+    }
+
+    /* Tarjeta 1: GoogleFake (Tema Claro con Google Multicolor y Fake Gris) */
+    .card-google {
+      background: #ffffff;
+      color: #202124;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 28px 24px;
+    }
+
+    /* Tarjeta 2: 999,999 views (Tema Oscuro YouTube) */
+    .card-views {
+      background: #2c2c2c;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 26px 24px;
+    }
+
+    
+    /* Tarjeta 3: Errors (Windows BSOD) */
+    .card-errors {
+      background: #0078d7;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px 24px;
+    }
+
+    .errors-card-title {
+      font-family: 'Segoe UI Light', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 38px !important;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      line-height: 1.1;
+      margin-top: 0px;
+      margin-bottom: 2px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .errors-card-title {
+        font-size: 30px !important;
+        gap: 8px;
+      }
+    }
+
+    .errors-card-title .meme-face-card {
+      font-size: 38px !important;
+      font-weight: 300;
+      font-family: 'Segoe UI Light', 'Segoe UI', sans-serif;
+      color: #ffffff;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    .errors-preview-box {
+      background: rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 6px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .errors-preview-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.88);
+      letter-spacing: 0.2px;
+    }
+
+    .errors-preview-pct {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    
+    /* Tarjeta 4: Edit Comments (Full YouTube Comment Card) */
+    .card-comments {
+      background: #ffffff;
+      color: #0f0f0f;
+      text-align: left;
+      align-items: center;
+      justify-content: center;
+      padding: 26px 28px;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    .card-comments-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 0 auto;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .card-comments-pinned {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #606060;
+      padding-left: 1px;
+      margin-bottom: 2px;
+    }
+
+    .card-comments-pinned svg {
+      width: 17px;
+      height: 17px;
+      fill: #606060;
+      flex-shrink: 0;
+    }
+
+    .card-comments-pinned strong {
+      font-weight: 600;
+      color: #606060;
+    }
+
+    .card-comments-body {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .card-comments-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #ff0000;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-comments-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-comments-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .card-comments-header {
+      display: flex;
+      align-items: baseline;
+      line-height: 1;
+    }
+
+    .card-comments-name {
+      font-size: 33px;
+      font-weight: 800;
+      color: #0f0f0f;
+      letter-spacing: -0.6px;
+      display: inline-flex;
+      align-items: baseline;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .card-comments-at {
+      color: #606060;
+      font-weight: 700;
+      margin-right: 1px;
+    }
+
+    .card-comments-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 6px;
+      margin-left: 0;
+      height: 24px;
+    }
+
+    .card-comments-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #606060;
+    }
+
+    .card-comments-btn svg {
+      color: #0f0f0f;
+      fill: #0f0f0f;
+      stroke: #0f0f0f;
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    .card-comments-reply {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f0f0f;
+      margin-left: 2px;
+    }
+
+    /* Tarjeta 5: Digital Timer */
+    .card-timer {
+      background: #242424;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 34px 24px 24px 24px;
+    }
+
+    .timer-card-digits {
+      font-family: 'DSEG7-Classic-Bold', 'DSEG7-Classic', monospace;
+      font-size: 52px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-top: 6px;
+    }
+
+    .timer-card-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .timer-mini-pill {
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 8px;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-mini-pill.pill-parar {
+      background: #ffffff;
+      color: #0f0f0f;
+    }
+
+    .timer-mini-pill.pill-reiniciar {
+      background: #383838;
+      color: #ffffff;
+      border: 1px solid #4a4a4a;
+    }
+
+    /* Tarjeta 6: PopFX (Simulador de Pop-ups, Cascada y Lluvia) */
+    .card-popups {
+      background-color: #00e600;
+      background-image: url('assets/png/popfx_card_bg.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 22px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .popups-card-title {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(34px, 4.2vw, 44px) !important;
+      font-weight: 900;
+      letter-spacing: -1.2px;
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0px;
+      line-height: 1;
+      margin: 0;
+      color: #ffffff;
+      -webkit-text-stroke: 3px #000000;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 3px 0 #000000) drop-shadow(0 5px 10px rgba(0, 0, 0, 0.45));
+    }
+
+    .popups-card-title .pop-word {
+      color: #ffffff;
+    }
+
+    .popups-card-title .rain-word {
+      color: #22c55e;
+    }
+
+    .popups-preview-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
+      margin-top: 2px;
+    }
+
+    .popups-mini-badge {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(18, 18, 20, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-twitter {
+      background: #f4f9ff;
+    }
+
+    .card-news {
+      background: #fffdf2;
+    }
+
+    .card-title {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      margin-bottom: 8px;
+    }
+
+    /* Título GoogleFake */
+    .google-fake-title {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0px;
+      margin-bottom: 0px;
+      line-height: 1.1;
+    }
+
+    .g-blue { color: #4285f4; }
+    .g-red { color: #ea4335; }
+    .g-yellow { color: #fbbc05; }
+    .g-green { color: #34a853; }
+
+    .google-fake-title .fake-tag {
+      color: #5f6368;
+      font-weight: 800;
+      margin-left: 2px;
+    }
+
+    /* Título Views Up */
+    .views-card-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1.1;
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+
+    .number-koulen {
+      font-family: 'Koulen', sans-serif;
+      font-size: 52px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .views-card-title .red-views {
+      font-family: 'Roboto', -apple-system, sans-serif;
+      color: #ff0000;
+      font-weight: 800;
+      font-size: 38px;
+      letter-spacing: -0.5px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.45;
+      color: #555555;
+      margin-bottom: 16px;
+    }
+
+    /* Barra visual Google (Tema Claro) */
+    .google-visual-bar {
+      height: 40px;
+      width: 100%;
+      max-width: 390px;
+      background: #ffffff;
+      border: 1.5px solid #dfe1e5;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 10px;
+      margin: 0 auto;
+      box-shadow: 0 1px 6px rgba(32, 33, 36, 0.08);
+    }
+
+    .google-visual-bar span {
+      font-size: 12.5px;
+      color: #5f6368;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Visual preview de Views (Tema Oscuro) */
+    .views-preview-bar {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 360px;
+      gap: 12px;
+      margin: 0 auto;
+    }
+
+    .preview-track {
+      width: 100%;
+      height: 11px;
+      background: #444444;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 74%;
+      background: #ff0000;
+      border-radius: 6px;
+    }
+
+    .preview-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .preview-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preview-stat-item svg {
+      width: 19px;
+      height: 19px;
+      fill: #ffffff;
+    }
+
+    .visual-pill-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .interactive-mini-tag {
+      font-size: 12px;
+      background: #ffffff;
+      border: 1.5px solid #111111;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      color: #111111;
+      box-shadow: 0 1.5px 0 #111111;
+    }
+
+    /* Toast Notification */
+    #toast-msg {
+      position: fixed;
+      bottom: 30px;
+      background: #111111;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    #toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }

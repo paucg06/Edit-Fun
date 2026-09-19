@@ -1,0 +1,462 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f0f0f;
+      --text-main: #ffffff;
+      --text-muted: #aaaaaa;
+      --segment-active: #ffffff;
+      --segment-dim: #222222;
+      --panel-bg: #212121;
+      --panel-border: #383838;
+      --panel-shadow: rgba(0, 0, 0, 0.55);
+      --input-bg: #141414;
+      --input-border: #444444;
+      --curve-track: #181818;
+      --active-border: #ffffff;
+      --active-color: #ffffff;
+      --btn-reset-bg: #303030;
+      --btn-reset-text: #ffffff;
+      --btn-toggle-bg: #ffffff;
+      --btn-toggle-text: #0f0f0f;
+    }
+
+    body.light-theme {
+      --bg: #ffffff;
+      --text-main: #0f0f0f;
+      --text-muted: #606060;
+      --segment-active: #0f0f0f;
+      --segment-dim: #eeeeee;
+      --panel-bg: #ffffff;
+      --panel-border: #e5e5e5;
+      --panel-shadow: rgba(0, 0, 0, 0.16);
+      --input-bg: #f8f8f8;
+      --input-border: #d0d0d0;
+      --curve-track: #f7f7f7;
+      --active-border: #0f0f0f;
+      --active-color: #0f0f0f;
+      --btn-reset-bg: #e5e5e5;
+      --btn-reset-text: #0f0f0f;
+      --btn-toggle-bg: #0f0f0f;
+      --btn-toggle-text: #ffffff;
+    }
+
+    /* Color Naranja Sólido */
+    body.digit-orange {
+      --segment-active: #ff9800 !important;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      position: relative;
+    }
+
+    /* Ocultar flechitas de input number */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* Botón 3 Puntos Arriba a la Derecha */
+    .top-menu-btn {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s, color 0.15s, opacity 0.2s;
+      z-index: 100;
+      opacity: 0.7;
+    }
+
+    .top-menu-btn:hover {
+      background-color: rgba(128, 128, 128, 0.15);
+      opacity: 1;
+      color: var(--text-main);
+    }
+
+    .top-menu-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Display 7 Segmentos Sólido */
+    .display-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DSEG7-Classic-Bold', 'DSEG7-Classic', monospace;
+      font-weight: 700;
+      letter-spacing: 4px;
+      line-height: 1;
+      font-size: min(18vw, 170px);
+      cursor: pointer;
+      margin-bottom: 32px;
+    }
+
+    .segment-dim-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--segment-dim);
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+
+    .segment-active-digits {
+      position: relative;
+      color: var(--segment-active);
+      z-index: 2;
+    }
+
+    /* Botones Principales: Reiniciar y Parar/Iniciar */
+    .main-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .btn-main-action {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease, opacity 0.12s ease, transform 0.1s ease;
+      min-width: 110px;
+    }
+
+    .btn-main-action:active {
+      transform: translateY(1px);
+    }
+
+    .btn-main-reset {
+      background-color: var(--btn-reset-bg);
+      color: var(--btn-reset-text);
+    }
+
+    .btn-main-reset:hover {
+      opacity: 0.85;
+    }
+
+    .btn-main-toggle {
+      background-color: var(--btn-toggle-bg);
+      color: var(--btn-toggle-text);
+    }
+
+    .btn-main-toggle:hover {
+      opacity: 0.88;
+    }
+
+    /* PANEL DE CONFIGURACIÓN COMPACTO (Estilo views.html) */
+    .config-modal {
+      position: fixed;
+      top: 62px;
+      right: 20px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--panel-shadow);
+      padding: 16px;
+      width: 320px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      animation: modalFadeIn 0.12s ease-out;
+    }
+
+    .config-modal.open {
+      display: flex;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 700;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--panel-border);
+      color: var(--text-main);
+    }
+
+    .config-row {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .config-label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .config-label-with-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .config-inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+
+    .config-input {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      width: 100%;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .config-input:focus {
+      border-color: var(--active-border);
+    }
+
+    select.config-input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777777'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 28px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    /* Selector de Opciones en Fila (Modo, Color, Tema) */
+    .toggle-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .toggle-btn-option {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: border-color 0.12s, color 0.12s;
+    }
+
+    .toggle-btn-option svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .toggle-btn-option.active {
+      border-color: var(--active-border);
+      color: var(--active-color);
+      font-weight: 700;
+    }
+
+    /* SECCIÓN DE GRÁFICA / LÍNEA DE VELOCIDAD PARA TIMELAPSE */
+    .curve-section {
+      background: var(--curve-track);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .curve-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .curve-reset-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      transition: all 0.15s ease;
+    }
+
+    .curve-reset-btn:hover {
+      color: var(--text-main);
+      background: rgba(128, 128, 128, 0.15);
+      transform: rotate(-45deg);
+    }
+
+    .curve-reset-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .curve-canvas-wrapper {
+      width: 100%;
+      height: 72px;
+      background: var(--panel-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .curve-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .speed-reference-line {
+      stroke: currentColor;
+      opacity: 0.15;
+      stroke-dasharray: 3,3;
+    }
+
+    .curve-handle {
+      cursor: grab;
+      transition: r 0.1s;
+    }
+    .curve-handle:hover {
+      r: 6.5;
+    }
+    .curve-handle:active, .curve-handle.dragging {
+      cursor: grabbing;
+      r: 8;
+    }
+
+    /* Botón Iniciar Integrado en el Panel */
+    .panel-action-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn-panel-toggle {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--btn-toggle-bg);
+      color: var(--btn-toggle-text);
+      transition: opacity 0.15s;
+    }
+    .btn-panel-toggle:hover {
+      opacity: 0.88;
+    }
+
+    /* Enlace Salir al Menú */
+    .exit-link {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 4px;
+      margin-top: 2px;
+      transition: color 0.12s;
+    }
+
+    .exit-link:hover {
+      color: var(--text-main);
+    }
+
+    .exit-link svg {
+      width: 14px;
+      height: 14px;
+    }

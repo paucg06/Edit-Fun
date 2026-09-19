@@ -1,0 +1,538 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --text-main: #0f0f0f;
+      --text-muted: #606060;
+      --bar-bg: #e5e5e5;
+      --bar-fill: #ff0000;
+      --icon-color: #0f0f0f;
+      --panel-bg: #ffffff;
+      --panel-border: #e5e5e5;
+      --panel-shadow: rgba(0, 0, 0, 0.16);
+      --input-bg: #f8f8f8;
+      --input-border: #d0d0d0;
+      --btn-bg: #0f0f0f;
+      --btn-text: #ffffff;
+      --curve-track: #f7f7f7;
+      --tab-bg: #f0f0f0;
+    }
+
+    body.dark-theme {
+      --bg: #0f0f0f;
+      --text-main: #f1f1f1;
+      --text-muted: #aaaaaa;
+      --bar-bg: #303030;
+      --bar-fill: #ff0000;
+      --icon-color: #f1f1f1;
+      --panel-bg: #212121;
+      --panel-border: #383838;
+      --panel-shadow: rgba(0, 0, 0, 0.55);
+      --input-bg: #141414;
+      --input-border: #444444;
+      --btn-bg: #ffffff;
+      --btn-text: #0f0f0f;
+      --curve-track: #181818;
+      --tab-bg: #2a2a2a;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      overflow: hidden;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      position: relative;
+    }
+
+    /* Ocultar flechitas de número */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* Botón 3 Puntos Arriba a la Derecha */
+    .top-menu-btn {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s, color 0.15s, opacity 0.2s;
+      z-index: 100;
+      opacity: 0.7;
+    }
+
+    .top-menu-btn:hover {
+      background-color: rgba(128, 128, 128, 0.15);
+      opacity: 1;
+      color: var(--text-main);
+    }
+
+    .top-menu-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Panel de Configuración Arriba a la Derecha */
+    .config-modal {
+      position: fixed;
+      top: 62px;
+      right: 20px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--panel-shadow);
+      padding: 16px;
+      width: 310px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      animation: modalFadeIn 0.12s ease-out;
+    }
+
+    .config-modal.open {
+      display: flex;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 700;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--panel-border);
+      color: var(--text-main);
+    }
+
+    .config-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .config-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .config-label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .config-label-with-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Puntito Rojo Limpio y Plano (Sin brillo) */
+    .modified-dot {
+      width: 6.5px;
+      height: 6.5px;
+      border-radius: 50%;
+      background: #ff0000;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    .modified-dot.visible {
+      display: inline-block;
+    }
+
+    .config-inputs-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .config-input {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .config-input:focus {
+      border-color: #ff0000;
+    }
+
+    /* Select de Formato */
+    select.config-input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777777'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+
+    /* ========================================================
+       SECCIÓN DE LÍNEA DE RITMO / VELOCIDAD (HORIZONTAL)
+       ======================================================== */
+    .curve-section {
+      background: var(--curve-track);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .curve-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .curve-reset-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      transition: all 0.15s ease;
+    }
+
+    .curve-reset-btn:hover {
+      color: #ff0000;
+      background: rgba(255, 0, 0, 0.08);
+      transform: rotate(-45deg);
+    }
+
+    .curve-reset-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* Selector de Métricas */
+    .metric-tabs-bar {
+      display: flex;
+      gap: 6px;
+      background: var(--tab-bg);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--input-border);
+    }
+
+    .metric-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      height: 32px;
+      border-radius: 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      flex: 1;
+    }
+
+    .metric-tab svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .metric-tab .metric-tab-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: max-width 0.2s ease, opacity 0.2s ease, margin-left 0.2s ease;
+      margin-left: 0;
+    }
+
+    .metric-tab.active {
+      background: #ff0000;
+      color: #ffffff;
+      flex: 1.6;
+    }
+
+    .metric-tab.active .metric-tab-text {
+      max-width: 70px;
+      opacity: 1;
+      margin-left: 6px;
+    }
+
+    /* Canvas / SVG Línea de Velocidad Horizontal */
+    .curve-canvas-wrapper {
+      width: 100%;
+      height: 80px;
+      background: var(--panel-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .curve-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .speed-reference-line {
+      stroke: currentColor;
+      opacity: 0.15;
+      stroke-dasharray: 3,3;
+    }
+
+    .curve-handle {
+      cursor: grab;
+      transition: r 0.1s;
+    }
+    .curve-handle:hover {
+      r: 6.5;
+    }
+    .curve-handle:active, .curve-handle.dragging {
+      cursor: grabbing;
+      r: 8;
+    }
+
+    /* Selector de Tema */
+    .theme-toggle-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    .theme-btn-option {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: border-color 0.12s, color 0.12s;
+    }
+
+    .theme-btn-option svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .theme-btn-option.active {
+      border-color: #ff0000;
+      color: #ff0000;
+    }
+
+    .action-btn-primary {
+      background: #ff0000;
+      color: #ffffff;
+      border: none;
+      padding: 9px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background-color 0.15s, transform 0.1s;
+    }
+
+    .action-btn-primary:hover {
+      background: #cc0000;
+      transform: scale(1.02);
+    }
+
+    .action-btn-primary svg {
+      width: 15px;
+      height: 15px;
+      fill: #ffffff;
+    }
+
+    /* Enlace de Salir al Menú */
+    .exit-link {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 4px;
+      transition: color 0.12s;
+    }
+
+    .exit-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    .exit-link:hover {
+      color: var(--text-main);
+    }
+
+    /* ========================================================
+       CONTENEDOR DE ESTADÍSTICAS LIMPIO PARA GRABACIÓN
+       ======================================================== */
+    .stats-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 640px;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    /* Views */
+    .views-title-row {
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+      line-height: 1;
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+
+    .views-number {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .views-label {
+      font-weight: 700;
+      color: var(--text-main);
+      opacity: 0.95;
+    }
+
+    /* Barra de Progreso Roja */
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      background-color: var(--bar-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .progress-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      background-color: var(--bar-fill);
+      border-radius: 4px;
+      transition: width 0.03s linear;
+    }
+
+    /* Fila de Likes y Dislikes */
+    .likes-dislikes-row {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      padding-left: 2px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--icon-color);
+    }
