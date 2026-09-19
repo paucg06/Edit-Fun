@@ -507,23 +507,27 @@
     }
 
     .btn-remove-sound {
-      background: transparent;
-      border: none;
-      color: #ef4444;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--panel-border);
+      color: #ffffff;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 13px;
       line-height: 1;
-      padding: 2px 4px;
+      width: 19px;
+      height: 19px;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
-      transition: background-color 0.15s ease;
+      border-radius: 50%;
+      transition: all 0.15s ease;
       flex-shrink: 0;
     }
 
     .btn-remove-sound:hover {
-      background-color: rgba(239, 68, 68, 0.15);
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      color: #ffffff;
     }
 
     /* Enlace Salir al Menú */

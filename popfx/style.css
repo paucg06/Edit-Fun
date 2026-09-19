@@ -978,21 +978,27 @@
     }
 
     .btn-remove-sound {
-      background: transparent;
-      border: none;
-      color: #f87171;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid #52525b;
+      color: #ffffff;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1;
+      width: 19px;
+      height: 19px;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.15s ease;
+      border-radius: 50%;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
     }
 
     .btn-remove-sound:hover {
-      color: #ef4444;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      color: #ffffff;
     }
 
     /* Selectores de fondo Croma */
