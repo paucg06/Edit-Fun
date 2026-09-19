@@ -59,7 +59,7 @@ La suite cuenta con **6 aplicaciones web independientes** y un **Hub principal**
   * Sonidos sintetizados por **Web Audio API** (*Pitido Digital*, *Campana*, *Alarma Doble*, *Silencio*).
   * Sincronización en tiempo real entre el panel y el display.
 
-### 6. 💥 Pop & Rain (`popups.html`)
+### 6. 💥 PopFX (`popups.html`)
 * **Propósito**: Generador dinámico de cascadas de ventanas/errores (rastro diagonal estilo Windows crash), pop-ups dispersos y lluvia de partículas.
 * **Características**:
   * **Zona Dropzone Drag & Drop (`+`)**: Sube múltiples imágenes al instante con visor de miniaturas y eliminación individual.
@@ -82,14 +82,17 @@ Edit-Fun/
 ├── errors.html                   # Herramienta 3: Windows Errors
 ├── comments.html                 # Herramienta 4: Edit Comments
 ├── timer.html                    # Herramienta 5: Time Up
-├── popups.html                   # Herramienta 6: Pop & Rain
+├── popups.html                   # Herramienta 6: PopFX
 ├── README.md                     # Documentación del repositorio
+├── LICENSE                       # Licencia oficial CC BY-NC-ND 4.0
 └── assets/
     ├── png/                      # Iconos, favicons y recursos gráficos PNG
     │   ├── 999views_icon.png
     │   ├── comment_icon.png
     │   ├── death-10-qr-code.png
     │   ├── editfun_icon.png
+    │   ├── popfx_card_bg.png
+    │   ├── popfx_icon.png
     │   ├── time_up_icon.png
     │   ├── windows_error_icon.png
     │   └── windowserror_icon.png
