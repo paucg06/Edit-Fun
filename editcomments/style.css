@@ -75,7 +75,7 @@
       .exit-btn {
         position: static;
         align-self: flex-start;
-        margin: 16px 24px 0 24px;
+        margin: 16px auto 0 24px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
       }
       .main-layout {
