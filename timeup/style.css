@@ -435,6 +435,97 @@
       opacity: 0.88;
     }
 
+    /* Controles de Sonido Customizado en Time Up */
+    .custom-sound-container {
+      margin-top: 2px;
+    }
+
+    .btn-upload-sound {
+      background: var(--input-bg);
+      border: 1px dashed var(--input-border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .btn-upload-sound:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+      background: var(--curve-track);
+    }
+
+    .btn-upload-sound svg {
+      flex-shrink: 0;
+      width: 13px;
+      height: 13px;
+    }
+
+    .custom-sound-active-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .custom-sound-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .custom-sound-info svg {
+      flex-shrink: 0;
+      width: 13px;
+      height: 13px;
+      color: var(--text-muted);
+    }
+
+    .custom-sound-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+
+    .btn-remove-sound {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 2px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background-color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-remove-sound:hover {
+      background-color: rgba(239, 68, 68, 0.15);
+    }
+
     /* Enlace Salir al Menú */
     .exit-link {
       color: var(--text-muted);

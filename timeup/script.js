@@ -35,6 +35,11 @@
     const rowTimeConfig = document.getElementById('row-time-config');
     const rowSoundConfig = document.getElementById('row-sound-config');
     const selectSound = document.getElementById('select-sound');
+    const rowCustomSound = document.getElementById('row-custom-sound');
+    const soundFileInput = document.getElementById('sound-file-input');
+    const customSoundContainer = document.getElementById('custom-sound-container');
+    let customAudioBuffer = null;
+    let customAudioFileName = '';
 
     const inputH = document.getElementById('input-h');
     const inputM = document.getElementById('input-m');
@@ -348,8 +353,100 @@
     });
 
     /* ========================================================
-       SONIDOS SINTETIZADOS CON WEB AUDIO API
+       SONIDOS SINTETIZADOS Y CUSTOMIZADOS (WEB AUDIO API)
        ======================================================== */
+    function playCustomAudioBuffer(ctx) {
+      if (!customAudioBuffer) return;
+      try {
+        const source = ctx.createBufferSource();
+        source.buffer = customAudioBuffer;
+        source.connect(ctx.destination);
+        source.start(0);
+      } catch (err) {
+        console.error('Error reproduciendo audio customizado:', err);
+      }
+    }
+
+    function updateCustomSoundUI() {
+      if (!customSoundContainer) return;
+      if (customAudioBuffer && customAudioFileName) {
+        customSoundContainer.innerHTML = `
+          <div class="custom-sound-active-wrap" title="${customAudioFileName}">
+            <div class="custom-sound-info">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              <span class="custom-sound-name">${customAudioFileName}</span>
+            </div>
+            <button type="button" class="btn-remove-sound" title="Quitar sonido">&times;</button>
+          </div>
+        `;
+        const btnRemove = customSoundContainer.querySelector('.btn-remove-sound');
+        if (btnRemove) {
+          btnRemove.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            customAudioBuffer = null;
+            customAudioFileName = '';
+            if (soundFileInput) soundFileInput.value = '';
+            updateCustomSoundUI();
+          });
+        }
+      } else {
+        customSoundContainer.innerHTML = `
+          <button type="button" class="btn-upload-sound" title="Subir archivo de audio propio (.mp3, .wav, .ogg)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <span>Subir sonido customizado</span>
+          </button>
+        `;
+        const btnUpload = customSoundContainer.querySelector('.btn-upload-sound');
+        if (btnUpload) {
+          btnUpload.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (soundFileInput) soundFileInput.click();
+          });
+        }
+      }
+    }
+
+    if (soundFileInput) {
+      soundFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const arrayBuffer = ev.target.result;
+          const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          audioCtx.decodeAudioData(arrayBuffer.slice(0), (decoded) => {
+            customAudioBuffer = decoded;
+            customAudioFileName = file.name;
+            updateCustomSoundUI();
+            playCustomAudioBuffer(audioCtx);
+          }, (err) => {
+            console.error('Error decodificando audio:', err);
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+    selectSound.addEventListener('change', () => {
+      if (selectSound.value === 'custom') {
+        rowCustomSound.style.display = 'block';
+        updateCustomSoundUI();
+      } else {
+        rowCustomSound.style.display = 'none';
+      }
+    });
+
     function playAlarmSound() {
       const type = selectSound.value;
       if (type === 'none') return;
@@ -357,7 +454,23 @@
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        if (type === 'beep') {
+        if (type === 'custom') {
+          if (customAudioBuffer) {
+            playCustomAudioBuffer(audioCtx);
+          } else {
+            // Pitido breve si todavía no ha cargado archivo
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1046.5, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.21);
+          }
+        } else if (type === 'beep') {
           // Pitido digital triple clásico
           for (let i = 0; i < 3; i++) {
             const osc = audioCtx.createOscillator();
@@ -538,4 +651,5 @@
     syncPlayButtonsState();
     updateDisplayDOM();
     updateCurveEditorView();
+    updateCustomSoundUI();
     requestAnimationFrame(timerLoop);

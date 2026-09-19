@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <script>
@@ -144,7 +144,14 @@
         <option value="bell">Campana</option>
         <option value="double">Alarma Doble</option>
         <option value="none">Silencio</option>
+        <option value="custom">Sonido personalizado</option>
       </select>
+
+      <!-- Botón y contenedor para subir sonido customizado -->
+      <div id="row-custom-sound" style="display: none; margin-top: 4px;">
+        <input type="file" id="sound-file-input" accept="audio/*" style="display: none;">
+        <div class="custom-sound-container" id="custom-sound-container"></div>
+      </div>
     </div>
 
     <!-- 5. COLOR DE DÍGITOS (Por defecto / Naranja) -->
